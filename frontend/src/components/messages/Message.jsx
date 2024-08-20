@@ -24,6 +24,7 @@ const Message = ({ message, selectedLanguage }) => {
         setError(null); // Clear any previous errors
 
         try {
+            // change the fetch with http://localhost:5001 for local production
             const response = await fetch('https://tackchat.onrender.com/translate', {
                 method: 'POST',
                 headers: {

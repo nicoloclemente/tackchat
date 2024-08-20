@@ -7,6 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
+        // change the origin with http://localhost:3000 for local production
         origin: ["https://tackchat.onrender.com"],
         methods: ["GET", "POST"],
     },
