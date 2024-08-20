@@ -15,6 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
+            // website url
             const socket = io("https://tackchat.onrender.com", {
                 query: {
                     userId: authUser._id,
