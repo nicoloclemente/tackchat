@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            // website url
+            // website url, change with http://localhost:5001 for local production
             const socket = io("https://tackchat.onrender.com", {
                 query: {
                     userId: authUser._id,
