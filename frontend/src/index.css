@@ -6,6 +6,11 @@ body {
     background-image: url("../public/ascii-art.png");
 }
 
+html, body {
+    overflow: hidden; /* Blocca lo scorrimento */
+    height: 100%; /* Assicura che il body occupi l'intera altezza della viewport */
+}
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -79,7 +84,7 @@ html {
 #cursor {
     font-size: 2em;
     font-family: 'Courier New', Courier, monospace;
-    border-right: 0.1em solid #e2601a; /* Cursore rosso */
+    border-right: 0.1em solid #e2601a; /* Colore Cursore */
     animation: blink-caret 0.75s step-end infinite;
     height: 1em; /* Assicurarsi che il cursore sia alto quanto il testo */
     vertical-align: middle;
