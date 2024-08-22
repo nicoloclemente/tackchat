@@ -6,11 +6,6 @@ body {
     background-image: url("../public/ascii-art.png");
 }
 
-html, body {
-    overflow: hidden; /* Blocca lo scorrimento */
-    height: 100%; /* Assicura che il body occupi l'intera altezza della viewport */
-}
-
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -23,6 +18,9 @@ html, body {
     }
 }
 
+html, body {
+    overscroll-behavior: none
+}
 /*Minimal Scrollbar*/
 ::-webkit-scrollbar{
     width: 7px;

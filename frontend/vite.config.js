@@ -15,7 +15,7 @@ export default defineConfig({
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
-        theme_color: '#e2601a',
+        theme_color: '#e2601a', // colour behind the body of the app, behind the background
         icons: [
           {
             src: '/icons/icon-192x192.png',
