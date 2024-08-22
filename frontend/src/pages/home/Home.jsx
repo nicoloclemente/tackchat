@@ -1,10 +1,13 @@
 import React from 'react';
-import { isMobile } from 'react-device-detect';
+import { isMobile as isMobileDevice, isTablet } from 'react-device-detect';
 import HomeDesktop from './HomeDesktop';
 import HomeMobile from './HomeMobile';
 
+// Custom function to check if the device is a phone and not a tablet
+const isPhone = () => isMobileDevice && !isTablet;
+
 const Home = () => {
-    return isMobile ? <HomeMobile /> : <HomeDesktop />;
+    return isPhone() ? <HomeMobile /> : <HomeDesktop />;
 };
 
 export default Home;
