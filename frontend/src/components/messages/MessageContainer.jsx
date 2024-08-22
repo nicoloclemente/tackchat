@@ -6,6 +6,7 @@ import { PiChats } from "react-icons/pi";
 import useConversation from "../../zustand/useConversation.js";
 import { useSocketContext } from "../../context/SocketContext.jsx"; // Importa useSocketContext
 import { useAuthContext } from "../../context/AuthContext.jsx";
+import { IoIosArrowBack } from "react-icons/io";
 
 const availableLanguages = [
     { code: 'en', name: 'English' },
@@ -17,7 +18,7 @@ const availableLanguages = [
     { code: 'zh-CN', name: 'Chinese' },
 ];
 
-const MessageContainer = () => {
+const MessageContainer = ({ onBackClick }) => {
     const { selectedConversation, setSelectedConversation } = useConversation();
     const { onlineUsers } = useSocketContext(); // Ottieni gli utenti online
     const [selectedLanguage, setSelectedLanguage] = useState('en'); // Stato per la lingua selezionata
@@ -34,20 +35,29 @@ const MessageContainer = () => {
     const isOnline = selectedConversation && onlineUsers.includes(selectedConversation._id);
 
     return (
-        <div className="w-full flex flex-col bg-gray-100 bg-opacity-75" id="chatBackground">
+        <div className="w-full h-full md:h-auto flex flex-col bg-gray-100 bg-opacity-75" id="chatBackground">
             {!selectedConversation ? (
-                <NoChatSelected />
+                <div className="hidden md:flex items-center justify-center w-full h-full">
+                    {/* Mostra solo su dispositivi non mobili (larghezza >= 768px) */}
+                    <NoChatSelected/>
+                </div>
             ) : (
                 <>
                     {/* Header */}
-                    <div className="gap-2 bg-white px-4 py-2 mb-2 flex border-b border-slate-500">
-                        <div className={`avatar ${isOnline ? 'online' : 'offline'}`}> {/* Change class based on online status */}
-                            <div className="w-12 rounded-full">
-                                <img src={selectedConversation.profilePic} alt="user avatar"/>
+                    <div className="gap-2 bg-white px-4 py-2 mb-2 flex items-center border-b border-slate-500">
+                        <IoIosArrowBack
+                            onClick={onBackClick}
+                            className="text-xl cursor-pointer mr-2"
+                        />
+                        <div
+                            className={`avatar ${isOnline ? 'online' : 'offline'}`}> {/* Change class based on online status */}
+                            <div className="w-12 h-12 rounded-full overflow-hidden">
+                                <img src={selectedConversation.profilePic} alt="user avatar"
+                                     className="w-full h-full object-cover"/>
                             </div>
                         </div>
 
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 ml-4">
                             <div className="flex gap-3 justify-between items-center">
                                 <div className="flex flex-col overflow-auto">
                                     <p className="font-bold text-black text-lg">{selectedConversation.fullName}</p>
@@ -70,8 +80,8 @@ const MessageContainer = () => {
                         </div>
                     </div>
 
-                    <Messages selectedLanguage={selectedLanguage} /> {/* Passa la lingua selezionata */}
-                    <MessageInput />
+                    <Messages selectedLanguage={selectedLanguage}/> {/* Passa la lingua selezionata */}
+                    <MessageInput/>
                 </>
             )}
         </div>
@@ -81,16 +91,17 @@ const MessageContainer = () => {
 export default MessageContainer;
 
 const NoChatSelected = () => {
-    const { authUser } = useAuthContext();
+    const {authUser} = useAuthContext();
     return (
         <div className="flex items-center justify-center w-full h-full">
-            <div className="px-4 text-center sm:text-lg md:text-xl text-orange-600 font-semibold flex flex-col items-center gap-2 bg-white bg-opacity-50 py-4">
+            <div
+                className="px-4 text-center sm:text-lg md:text-xl text-orange-600 font-semibold flex flex-col items-center gap-2 bg-white bg-opacity-50 py-4">
                 <div className="w-60 rounded-full">
                     <img src={authUser.profilePic} alt="user avatar"/>
                 </div>
                 <p>Welcome {authUser.fullName}</p>
                 <p>Select a chat to start messaging</p>
-                <PiChats className="text-3xl md:text-6xl text-center" />
+                <PiChats className="text-3xl md:text-6xl text-center"/>
             </div>
         </div>
     );
