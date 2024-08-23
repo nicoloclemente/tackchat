@@ -26,7 +26,7 @@ const Conversation = ({conversation, lastIdx, language}) => {
                         <p className="font-normal text-lg text-black whitespace-nowrap overflow-hidden text-ellipsis">{conversation.fullName}</p>
                         <p className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">{isOnline ? "online" : "offline"}</p>
                     </div>
-                    <span className="pl-5 text-[12px] text-gray-500">{language}</span>
+                    <span className="pl-5 text-sm text-gray-500">{language}</span>
                 </div>
             </div>
         </div>
