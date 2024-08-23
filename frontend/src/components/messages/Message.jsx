@@ -82,15 +82,15 @@ const Message = ({ message, selectedLanguage }) => {
                 className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-7`}>
                 {message.message}
                 {/* Translation button */}
-                <div className={`mt-2 flex gap-1 ${translateButtonShow}`}>
+                <div className="flex gap-1 pt-1">
                     <button
                         onClick={handleTranslate}
-                        className="text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3"
+                        className={`${translateButtonShow} text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3`}
                         disabled={loading}
                     >
-                        {loading ? "In progress..." : "T"}
+                        {loading ? "In progress..." : "t"}
                     </button>
-                    <div className="chat-footer opacity-50 text-xs gap-1 text-right w-full text-black">{formattedTime}</div>
+                    <div className="chat-footer text-sm gap-1 text-right w-full text-gray-600 pl-3">{formattedTime}</div>
                 </div>
                 {/* Show translated message, if available */}
                 {translatedMessage && (
@@ -101,7 +101,7 @@ const Message = ({ message, selectedLanguage }) => {
                 )}
                 {/* Show an error message, if available */}
                 {error && (
-                    <div className="mt-2 text-red-500">
+                    <div className="mt-2 text-red-500 bg-black rounded-lg">
                         <p>Errore: {error}</p>
                     </div>
                 )}

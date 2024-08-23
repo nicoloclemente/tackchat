@@ -95,7 +95,17 @@ html {
     }
 }
 
-#chatBackground {
-    background: url("../public/ascii-art3.png");
-}
+#chatBackground::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("../public/ascii-art3.png");
+        background-size: cover;
+        background-position: center;
+        z-index: -1; /* Mantenere il background dietro al contenuto */
+    }
+
 

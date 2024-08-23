@@ -16,7 +16,7 @@ const Messages = ({ selectedLanguage }) => { // Accept the selectedLanguage prop
     }, [messages]);
 
     return (
-        <div className="px-4 flex-1 overflow-auto">
+        <div className="px-4 py-3 flex-1 overflow-auto">
             {!loading && messages.length > 0 && messages.map((message) => (
                 <div key={message._id} ref={lastMessageRef}>
                     <Message message={message} selectedLanguage={selectedLanguage} /> {/* Passes selectedLanguage */}

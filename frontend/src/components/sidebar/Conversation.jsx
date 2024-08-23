@@ -22,11 +22,11 @@ const Conversation = ({conversation, lastIdx, language}) => {
 
             <div className="flex flex-col flex-1">
                 <div className="flex gap-3 justify-between">
-                    <div className="flex flex-col overflow-auto">
-                        <p className="font-bold text-xl text-black">{conversation.fullName}</p>
-                        <p className="font-thin text-sm text-black">{isOnline ? "online" : "offline"}</p>
+                    <div className="flex flex-col overflow-hidden">
+                        <p className="font-normal text-lg text-black whitespace-nowrap overflow-hidden text-ellipsis">{conversation.fullName}</p>
+                        <p className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">{isOnline ? "online" : "offline"}</p>
                     </div>
-                    <span className="text-lg">{language}</span>
+                    <span className="pl-5 text-[12px] text-gray-500">{language}</span>
                 </div>
             </div>
         </div>

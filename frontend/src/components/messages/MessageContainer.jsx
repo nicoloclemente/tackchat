@@ -44,7 +44,7 @@ const MessageContainer = ({ onBackClick }) => {
             ) : (
                 <>
                     {/* Header */}
-                    <div className="gap-2 bg-white px-4 py-2 mb-2 flex items-center border-b border-slate-500">
+                    <div className="gap-2 bg-white px-4 py-2 flex items-center border-b border-slate-500">
                         <IoIosArrowBack
                             onClick={onBackClick}
                             className="text-xl cursor-pointer mr-2"
@@ -60,8 +60,8 @@ const MessageContainer = ({ onBackClick }) => {
                         <div className="flex flex-col flex-1 ml-4">
                             <div className="flex gap-3 justify-between items-center">
                                 <div className="flex flex-col overflow-auto">
-                                    <p className="font-bold text-black text-lg">{selectedConversation.fullName}</p>
-                                    <p className="font-thin text-sm text-black">{isOnline ? "online" : "offline"}</p>
+                                    <p className="font-normal text-black text-xl">{selectedConversation.fullName}</p>
+                                    <p className="font-normal text-sm text-gray-500">{isOnline ? "online" : "offline"}</p>
                                 </div>
                                 <div className="relative">
                                     <select
@@ -79,7 +79,6 @@ const MessageContainer = ({ onBackClick }) => {
                             </div>
                         </div>
                     </div>
-
                     <Messages selectedLanguage={selectedLanguage}/> {/* Passa la lingua selezionata */}
                     <MessageInput/>
                 </>
@@ -95,7 +94,7 @@ const NoChatSelected = () => {
     return (
         <div className="flex items-center justify-center w-full h-full">
             <div
-                className="px-4 text-center sm:text-lg md:text-xl text-orange-600 font-semibold flex flex-col items-center gap-2 bg-white bg-opacity-50 py-4">
+                className="px-4 text-center sm:text-lg md:text-xl text-orange-600 font-semibold flex flex-col items-center gap-2">
                 <div className="w-60 rounded-full">
                     <img src={authUser.profilePic} alt="user avatar"/>
                 </div>

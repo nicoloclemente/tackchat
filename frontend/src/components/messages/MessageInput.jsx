@@ -12,18 +12,18 @@ const MessageInput = () => {
         setMessage("");
     }
     return (
-        <form className="px-4 my-3" onSubmit={handleSubmit}>
+        <form className="px-4 py-2 bg-gray-200" onSubmit={handleSubmit}>
             <div className="flex w-full items-center">
                 <input
                     type="text"
-                    className="border text-sm rounded-lg block w-full p-2.5 bg-white border-gray-300 text-black caret-black"
+                    className="ml-2 rounded-lg block w-full p-2.5 bg-white text-black caret-black"
                     placeholder="Send a message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
                 <button
                     type="submit"
-                    className="ml-4 text-xl text-white hover:bg-blue-500 p-3 bg-orange-600 rounded-xl border border-gray-300"
+                    className="ml-2 mr-2 text-[30px] hover:text-blue-500 p-3 text-black"
                 >
                     {loading ? <div className="loading loading-spinner"></div> : <RiSendPlaneFill />}
                 </button>
