@@ -5,7 +5,7 @@ import LogoutButton from "./LogoutButton.jsx";
 
 const Sidebar = ({ onConversationClick }) => {
     return (
-        <div className="w-full h-full md:w-auto md:h-auto bg-white md:border-r border-slate-500 p-4 flex flex-col">
+        <div className="w-full h-full md:w-auto md:h-auto bg-white md:border-r border-slate-500 p-4 flex flex-col pb-7 md:pb-4">
             <h1 className="p-2 py-1 font-bold text-3xl mb-3">Chat</h1>
             <SearchInput />
             <div className="divider px-3"></div>
