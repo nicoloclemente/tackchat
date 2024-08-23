@@ -1,4 +1,4 @@
-import { RiSendPlaneFill } from "react-icons/ri";
+import { IoSend } from "react-icons/io5";
 import {useState} from "react";
 import useSendMessage from "../../hooks/useSendMessage.js";
 
@@ -12,20 +12,20 @@ const MessageInput = () => {
         setMessage("");
     }
     return (
-        <form className="px-4 py-2 bg-gray-200 pb-7 md:pb-2" onSubmit={handleSubmit}>
+        <form className="px-4 py-2 bg-gray-200 mb-7 bg-opacity-50" onSubmit={handleSubmit}>
             <div className="flex w-full items-center">
                 <input
                     type="text"
-                    className="ml-2 rounded-lg block w-full p-2.5 bg-white text-black caret-black"
+                    className="ml-2 rounded-full block w-full p-2 bg-white text-black caret-orange-600 outline-none"
                     placeholder="Send a message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
                 <button
                     type="submit"
-                    className="ml-2 mr-2 text-[30px] hover:text-blue-500 p-3 text-black"
+                    className="mx-2 text-xl hover:text-blue-500 p-2.5 text-white bg-orange-600 rounded-full"
                 >
-                    {loading ? <div className="loading loading-spinner"></div> : <RiSendPlaneFill />}
+                    {loading ? <div className="loading loading-spinner"></div> : <IoSend />}
                 </button>
             </div>
         </form>

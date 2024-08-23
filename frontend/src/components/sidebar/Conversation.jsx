@@ -28,10 +28,11 @@ const Conversation = ({conversation, lastIdx, language}) => {
                     </div>
                     <span className="pl-5 text-sm text-gray-500">{language}</span>
                 </div>
+                {!lastIdx && <div className="divider my-0 py-0 h-1" />}
             </div>
         </div>
 
-        {!lastIdx && <div className="divider my-0 py-0 h-1" />}
+
     </>;
 };
 export default Conversation;

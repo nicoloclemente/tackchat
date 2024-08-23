@@ -47,7 +47,7 @@ const MessageContainer = ({ onBackClick }) => {
                     <div className="gap-2 bg-white px-4 py-2 flex items-center border-b border-slate-500">
                         <IoIosArrowBack
                             onClick={onBackClick}
-                            className="text-xl cursor-pointer mr-2"
+                            className="text-3xl cursor-pointer md:hidden"
                         />
                         <div
                             className={`avatar ${isOnline ? 'online' : 'offline'}`}> {/* Change class based on online status */}
