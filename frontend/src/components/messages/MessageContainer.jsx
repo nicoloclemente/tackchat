@@ -67,7 +67,7 @@ const MessageContainer = ({ onBackClick }) => {
                                     <select
                                         value={selectedLanguage}
                                         onChange={handleLanguageChange}
-                                        className="text-lg bg-black h-10 text-white rounded-full p-2 text-center"
+                                        className="text-lg bg-black h-10 text-white rounded-xl p-1 text-center outline-none"
                                     >
                                         {availableLanguages.map((lang) => (
                                             <option key={lang.code} value={lang.code}>
