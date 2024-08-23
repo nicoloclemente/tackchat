@@ -12,6 +12,8 @@ const Message = ({ message, selectedLanguage }) => {
     const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
     const bubbleBgColor = fromMe ? 'bg-orange-600' : 'bg-gray-300';
     const bubbleTextColor = fromMe ? 'text-white' : 'text-black';
+    const picShow = fromMe ? "hidden" : "";
+    const translateButtonShow = fromMe ? "hidden" : "";
 
     // Status for translated message
     const [translatedMessage, setTranslatedMessage] = useState(null);
@@ -71,16 +73,16 @@ const Message = ({ message, selectedLanguage }) => {
 
     return (
         <div className={`chat ${chatClassName}`}>
-            <div className="chat-image avatar">
+            <div className={`${picShow} chat-image avatar`}>
                 <div className="w-10 rounded-full">
                     <img alt="Tailwind CSS chat bubble component" src={profilePic} />
                 </div>
             </div>
             <div
-                className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-lg`}>
+                className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-7`}>
                 {message.message}
                 {/* Translation button */}
-                <div className="mt-2 flex gap-1">
+                <div className={`mt-2 flex gap-1 ${translateButtonShow}`}>
                     <button
                         onClick={handleTranslate}
                         className="text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3"

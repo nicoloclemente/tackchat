@@ -23,10 +23,10 @@ const Conversation = ({conversation, lastIdx, language}) => {
             <div className="flex flex-col flex-1">
                 <div className="flex gap-3 justify-between">
                     <div className="flex flex-col overflow-auto">
-                        <p className="font-bold text-black">{conversation.fullName}</p>
+                        <p className="font-bold text-xl text-black">{conversation.fullName}</p>
                         <p className="font-thin text-sm text-black">{isOnline ? "online" : "offline"}</p>
                     </div>
-                    <span className="text-xl">{language}</span>
+                    <span className="text-lg">{language}</span>
                 </div>
             </div>
         </div>
