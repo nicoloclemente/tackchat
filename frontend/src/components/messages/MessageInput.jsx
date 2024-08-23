@@ -12,7 +12,7 @@ const MessageInput = () => {
         setMessage("");
     }
     return (
-        <form className="px-4 py-2 bg-gray-200 mb-7 bg-opacity-50" onSubmit={handleSubmit}>
+        <form className="px-4 py-2 bg-gray-200 mb-7 md:mb-0 bg-opacity-50" onSubmit={handleSubmit}>
             <div className="flex w-full items-center">
                 <input
                     type="text"
