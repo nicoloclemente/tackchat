@@ -35,7 +35,7 @@ const Conversation = ({ conversation, lastIdx, language }) => {
                             {isOnline ? "online" : "offline"}
                         </p>
                     </div>
-                    {/*<span className="pl-5 text-gray-500">{language}</span>*/}
+                    <span className="pl-5 text-gray-500">{language}</span>
                 </div>
             </div>
         </div>

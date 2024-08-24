@@ -61,7 +61,7 @@ const MessageContainer = ({ onBackClick }) => {
                             <div className="flex gap-3 justify-between items-center">
                                 <div className="flex flex-col overflow-auto">
                                     <p className="font-normal text-black text-xl">{selectedConversation.fullName}</p>
-                                    <p className="font-normal text-sm text-gray-500">{isOnline ? "online" : "offline"}</p>
+                                    <p className="font-normal text-sm text-gray-500">[{selectedConversation.username}] is {isOnline ? "online" : "offline"}</p>
                                 </div>
                                 <div className="relative">
                                     <select

@@ -10,7 +10,7 @@ import { useAuthContext } from "../../context/AuthContext.jsx";
 const Sidebar = ({ onConversationClick }) => {
     const {authUser} = useAuthContext();
 
-    const [selected, setSelected] = useState('chat');
+    const [selected, setSelected] = useState('chats');
 
     const handleSelect = (button) => {
         setSelected(button);
@@ -49,6 +49,7 @@ const Sidebar = ({ onConversationClick }) => {
                         </div>
                         <p>Name: {authUser.fullName}</p>
                         <p>Username: {authUser.username}</p>
+                        <LogoutButton />
                     </div>
                 </div>
             )}
