@@ -44,7 +44,7 @@ const MessageContainer = ({ onBackClick }) => {
             ) : (
                 <>
                     {/* Header */}
-                    <div className="gap-2 bg-white px-4 py-2 flex items-center border-b border-slate-500">
+                    <div className="gap-2 bg-white px-4 py-2 flex items-center border-b">
                         <IoIosArrowBack
                             onClick={onBackClick}
                             className="text-3xl cursor-pointer md:hidden"
@@ -61,7 +61,7 @@ const MessageContainer = ({ onBackClick }) => {
                             <div className="flex gap-3 justify-between items-center">
                                 <div className="flex flex-col overflow-auto">
                                     <p className="font-normal text-black text-xl">{selectedConversation.fullName}</p>
-                                    <p className="font-normal text-sm text-gray-500">[{selectedConversation.username}] is {isOnline ? "online" : "offline"}</p>
+                                    <p className="font-normal text-sm text-gray-500">{isOnline ? "online" : "offline"}</p>
                                 </div>
                                 <div className="relative">
                                     <select

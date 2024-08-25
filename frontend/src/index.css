@@ -105,7 +105,7 @@ html {
         background-image: url("../public/ascii-art3.png");
         background-size: cover;
         background-position: center;
-        z-index: -1; /* Mantenere il background dietro al contenuto */
+        z-index: -1; /* background dietro al contenuto */
     }
 
 

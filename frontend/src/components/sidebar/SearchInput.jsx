@@ -24,8 +24,8 @@ const SearchInput = () => {
         } else toast.error("No such user found!")
     }
     return (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <input type="text" placeholder="Search..." className="input input-bordered w-full rounded-xl caret-orange-600 focus:outline-none"
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 p-4">
+            <input type="text" placeholder="Search..." className="input input-bordered w-full h-10 rounded-xl caret-orange-600 focus:outline-none"
                    value={search}
                    onChange={(e) => setSearch(e.target.value)}
             />

@@ -6,80 +6,101 @@ import { IoMdChatbubbles } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+import useLogout from "../../hooks/useLogout.js";
 
 const Sidebar = ({ onConversationClick }) => {
-    const {authUser} = useAuthContext();
+    const { authUser } = useAuthContext();
 
-    const [selected, setSelected] = useState('chats');
+    const [selected, setSelected] = useState('Chats');
 
     const handleSelect = (button) => {
         setSelected(button);
     };
 
-    return (
-        <div className="w-full h-full md:w-auto md:h-auto bg-white md:border-r border-slate-500 p-4 flex flex-col pb-7 md:pb-4">
-            <h1 className="p-2 py-1 font-bold text-3xl mb-3">Chats</h1>
-            <SearchInput />
-            <div className="divider px-3"></div>
+    const {loading, logout} = useLogout();
 
-            {/* Visualizza Conversations sempre nella vista desktop */}
-            <div className="hidden md:block">
-                <Conversations onConversationClick={onConversationClick} />
+    return (
+        <div
+            className="w-full h-full md:w-auto bg-white md:border-r border-slate-500 flex flex-col md:pb-4 relative">
+
+            {/* Header */}
+            <div className="border-b-0 px-4">
+                <h1 className=" py-2 font-bold text-3xl mb-">{selected}</h1>
             </div>
 
-            {/* Visualizza Conversations solo se discover è selezionato su mobile */}
-            {selected === 'discover' && (
-                <div className="md:hidden">
-                    <Conversations onConversationClick={onConversationClick} />
+
+            {/* Conversations vista desktop */}
+            <div className="hidden md:block flex-1 overflow-y-auto">
+                <SearchInput/>
+                <Conversations onConversationClick={onConversationClick}/>
+            </div>
+
+            {/* Conversations button selected mobile */}
+            {(selected === 'Tack') && (
+                <div className="md:hidden flex-1 overflow-y-auto">
+                    <SearchInput/>
+                    <Conversations onConversationClick={onConversationClick}/>
                 </div>
             )}
 
-            {selected === 'chats' && (
-                <div className="md:hidden">
-                    <Conversations onConversationClick={onConversationClick} />
+            {(selected === 'Chats') && (
+                <div className="md:hidden flex-1 overflow-y-auto">
+                    <SearchInput/>
+                    <Conversations onConversationClick={onConversationClick}/>
                 </div>
             )}
 
-            {selected === 'profile' && (
-                <div className="flex items-center justify-center w-full h-full md:hidden">
-                    <div
-                        className="px-4 text-center text-xl text-orange-600 font-semibold flex flex-col items-center gap-2">
-                        <div className="w-60 rounded-full">
-                            <img src={authUser.profilePic} alt="user avatar"/>
+            {/* Profile view on mobile */}
+            {selected === 'Profile' && (
+                <div className="md:hidden">
+                    <div className="flex w-full justify-end px-4">
+                        <button className="text-lg font-bold text-gray-500 mt-4 p-2 bg-gray-200 rounded-full" onClick={logout}>Logout</button>
+                    </div>
+                    <div className="flex items-center w-full h-full">
+                        <div
+                            className="px-4 text-xl text-orange-600 font-semibold flex items-center gap-4">
+                            <div className="w-24 rounded-full">
+                                <img src={authUser.profilePic} alt="user avatar"/>
+                            </div>
+                            <div className="">
+                                <p>{authUser.fullName}</p>
+                                <p className="text-lg text-gray-500">{authUser.username}</p>
+                            </div>
+
                         </div>
-                        <p>Name: {authUser.fullName}</p>
-                        <p>Username: {authUser.username}</p>
-                        <LogoutButton />
                     </div>
                 </div>
             )}
 
-            <div className="hidden md:flex md:flex-col md:mt-auto">
-                <LogoutButton/>
-            </div>
-
-            <div className="md:hidden flex justify-around bg-gray-100 border rounded-full mt-auto p-2 text-4xl">
+            <div
+                className="md:hidden fixed bottom-7 left-4 right-4 flex justify-around bg-gray-100 border rounded-full p-1.5 text-4xl z-10">
                 <div
-                    className={`flex flex-col items-center ${selected === 'discover' ? 'text-orange-600' : ''}`}
-                    onClick={() => handleSelect('discover')}
+                    className={`flex flex-col items-center ${selected === 'Tack' ? 'text-orange-600' : ''}`}
+                    onClick={() => handleSelect('Tack')}
                 >
                     <BiWorld/>
-                    <span className="text-xs">Discover</span>
+                    <span className="text-xs py-0.5">Tack</span>
                 </div>
                 <div
-                    className={`flex flex-col items-center ${selected === 'chats' ? 'text-orange-600' : ''}`}
-                    onClick={() => handleSelect('chats')}
+                    className={`flex flex-col items-center ${selected === 'Chats' ? 'text-orange-600' : ''}`}
+                    onClick={() => handleSelect('Chats')}
                 >
-                    <IoMdChatbubbles />
-                    <span className="text-xs">Chats</span>
+                    <IoMdChatbubbles/>
+                    <span className="text-xs py-0.5">Chats</span>
+
                 </div>
                 <div
-                    className={`flex flex-col items-center ${selected === 'profile' ? 'text-orange-600' : ''}`}
-                    onClick={() => handleSelect('profile')}
+                    className={`flex flex-col items-center ${selected === 'Profile' ? 'text-orange-600' : ''}`}
+                    onClick={() => handleSelect('Profile')}
                 >
-                    <FaUser />
-                    <span className="text-xs">Profile</span>
+                    <FaUser/>
+                    <span className="text-xs py-0.5">Profile</span>
                 </div>
+            </div>
+
+            {/* Logout Button for Desktop */}
+            <div className="hidden md:flex md:flex-col md:mt-auto">
+                <LogoutButton/>
             </div>
         </div>
     );

@@ -25,6 +25,9 @@ const Conversations = ({ onConversationClick }) => {
                 </div>
             ))}
             {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
+            <div className="text-xs pt-4 pb-28 flex items-center justify-center md:hidden">
+                <p>There are no more conversation</p>
+            </div>
         </div>
     );
 };
