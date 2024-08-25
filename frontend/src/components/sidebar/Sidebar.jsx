@@ -25,7 +25,7 @@ const Sidebar = ({ onConversationClick }) => {
 
             {/* Header */}
             <div className="border-b-0 px-4">
-                <h1 className=" py-2 font-bold text-3xl mb-">{selected}</h1>
+                <h1 className=" py-2 font-bold text-4xl mb-">{selected}</h1>
             </div>
 
 
@@ -54,7 +54,7 @@ const Sidebar = ({ onConversationClick }) => {
             {selected === 'Profile' && (
                 <div className="md:hidden">
                     <div className="flex w-full justify-end px-4">
-                        <button className="text-lg font-bold text-gray-500 mt-4 p-2 bg-gray-200 rounded-full" onClick={logout}>Logout</button>
+                        <button className="text-lg hover:bg-blue-500 hover:text-white font-bold text-gray-500 mt-4 p-2 bg-gray-200 rounded-full" onClick={logout}>Logout</button>
                     </div>
                     <div className="flex items-center w-full h-full">
                         <div
