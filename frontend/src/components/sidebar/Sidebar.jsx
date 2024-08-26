@@ -7,6 +7,8 @@ import { FaUser } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
 import { useAuthContext } from "../../context/AuthContext.jsx";
 import useLogout from "../../hooks/useLogout.js";
+import {formatFullDate} from "../../utils/formatFullDate.js";
+import StartedConversations from "./StartedConversations.jsx";
 
 const Sidebar = ({ onConversationClick }) => {
     const { authUser } = useAuthContext();
@@ -19,9 +21,11 @@ const Sidebar = ({ onConversationClick }) => {
 
     const {loading, logout} = useLogout();
 
+    const memberSince = authUser ? formatFullDate(authUser.createdAt) : "N/A";
+
     return (
         <div
-            className="w-full h-full md:w-auto bg-white md:border-r border-slate-500 flex flex-col md:pb-4 relative">
+            className="w-full h-full md:w-auto bg-white md:border-r border-slate-500 flex flex-col md:pb-4 relative md:min-w-96">
 
             {/* Header */}
             <div className="border-b-0 px-4">
@@ -29,30 +33,24 @@ const Sidebar = ({ onConversationClick }) => {
             </div>
 
 
-            {/* Conversations vista desktop */}
-            <div className="hidden md:block flex-1 overflow-y-auto">
-                <SearchInput/>
-                <Conversations onConversationClick={onConversationClick}/>
-            </div>
-
             {/* Conversations button selected mobile */}
             {(selected === 'Tack') && (
-                <div className="md:hidden flex-1 overflow-y-auto">
+                <div className=" flex-1 overflow-y-auto">
                     <SearchInput/>
                     <Conversations onConversationClick={onConversationClick}/>
                 </div>
             )}
 
             {(selected === 'Chats') && (
-                <div className="md:hidden flex-1 overflow-y-auto">
+                <div className=" flex-1 overflow-y-auto">
                     <SearchInput/>
-                    <Conversations onConversationClick={onConversationClick}/>
+                    <StartedConversations onConversationClick={onConversationClick}/>
                 </div>
             )}
 
             {/* Profile view on mobile */}
             {selected === 'Profile' && (
-                <div className="md:hidden">
+                <div className="">
                     <div className="flex w-full justify-end px-4">
                         <button className="text-lg hover:bg-blue-500 hover:text-white font-bold text-gray-500 mt-4 p-2 bg-gray-200 rounded-full" onClick={logout}>Logout</button>
                     </div>
@@ -65,6 +63,7 @@ const Sidebar = ({ onConversationClick }) => {
                             <div className="">
                                 <p>{authUser.fullName}</p>
                                 <p className="text-lg text-gray-500">{authUser.username}</p>
+                                <p className="text-xs py-2 text-gray-800">Member since: {memberSince}</p>
                             </div>
 
                         </div>
@@ -72,8 +71,8 @@ const Sidebar = ({ onConversationClick }) => {
                 </div>
             )}
 
-            <div
-                className="md:hidden fixed bottom-7 left-4 right-4 flex justify-around bg-gray-100 border rounded-full p-1.5 text-4xl z-10">
+            <div className="fixed bottom-7 left-4 right-4 flex justify-around border rounded-full p-1.5 bg-gray-200 text-4xl z-10
+                md:static md:bottom-3 md:mt-auto md:border-0 md:bg-transparent">
                 <div
                     className={`flex flex-col items-center ${selected === 'Tack' ? 'text-orange-600' : ''}`}
                     onClick={() => handleSelect('Tack')}
@@ -96,11 +95,6 @@ const Sidebar = ({ onConversationClick }) => {
                     <FaUser/>
                     <span className="text-xs py-0.5">Profile</span>
                 </div>
-            </div>
-
-            {/* Logout Button for Desktop */}
-            <div className="hidden md:flex md:flex-col md:mt-auto">
-                <LogoutButton/>
             </div>
         </div>
     );

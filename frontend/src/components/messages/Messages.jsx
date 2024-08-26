@@ -12,11 +12,6 @@ const Messages = ({ selectedLanguage }) => { // Accept the selectedLanguage prop
     const lastMessageRef = useRef();
     const { selectedConversation, setSelectedConversation } = useConversation();
 
-    const lastMessage = messages[messages.length - 1];
-    const lastMessageDate = lastMessage ? extractTime(lastMessage.createdAt) : "N/A";
-
-
-
     useEffect(() => {
         setTimeout(() => {
             lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -28,8 +23,6 @@ const Messages = ({ selectedLanguage }) => { // Accept the selectedLanguage prop
             <div className="flex flex-col justify-between items-center py-4 gap-y-2">
                 <p className="font-normal text-black text-xl">{selectedConversation.fullName}</p>
                 <p className="font-normal text-sm text-gray-500">{selectedConversation.username}</p>
-                {/* Mostra la data dell'ultimo messaggio */}
-                <p className="text-gray-400">Ultimo messaggio inviato: {lastMessageDate}</p>
             </div>
             {!loading && messages.length > 0 && messages.map((message) => (
                 <div key={message._id} ref={lastMessageRef}>

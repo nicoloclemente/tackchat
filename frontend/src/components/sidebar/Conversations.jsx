@@ -1,7 +1,6 @@
 import React from 'react';
 import Conversation from "./Conversation.jsx";
 import useGetConversations from "../../hooks/useGetConversations.js";
-import { getRandomLanguageCode } from "../../utils/language.js";
 
 const Conversations = ({ onConversationClick }) => {
     const { loading, conversations } = useGetConversations();
@@ -19,7 +18,6 @@ const Conversations = ({ onConversationClick }) => {
                 <div key={conversation._id} onClick={() => handleConversationClick(conversation)}>
                     <Conversation
                         conversation={conversation}
-                        language={getRandomLanguageCode()}
                         lastIdx={idx === conversations.length - 1}
                     />
                 </div>

@@ -1,13 +1,13 @@
 import useConversation from "../../zustand/useConversation.js";
 import { useSocketContext } from "../../context/SocketContext.jsx";
+import {extractTime} from "../../utils/extractTime.js";
 
-const Conversation = ({ conversation, lastIdx, language }) => {
+const Conversation = ({ conversation }) => {
     const { selectedConversation, setSelectedConversation } = useConversation();
-
-    const isSelected = selectedConversation?._id === conversation._id;
     const { onlineUsers } = useSocketContext();
     const isOnline = onlineUsers.includes(conversation._id);
-
+    const isSelected = selectedConversation?._id === conversation._id;
+console.log(conversation);
     return (
         <div
             className={`flex gap-4 items-center hover:bg-gray-100 rounded cursor-pointer px-4 
@@ -29,17 +29,15 @@ const Conversation = ({ conversation, lastIdx, language }) => {
                                 {conversation.fullName}
                             </p>
                         </div>
-                        <span
-                            className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                                {conversation.username}
-                            </span>
-                        <span
-                            className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                                last message text
-                            </span>
+                        <span className="font-semibold text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {conversation.username}
+                        </span>
+                        <span className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                            {conversation.lastMessageText ? conversation.lastMessageText : <span>&nbsp;</span>}
+                        </span>
                     </div>
                     <span className="pl-5 text-gray-500">
-                        {language}
+                         {extractTime(conversation.lastMessageDate)}
                     </span>
                 </div>
             </div>
