@@ -57,7 +57,7 @@ const useGetConversationsWithMessages = () => {
             socket.on("newMessage", (newMessage) => {
                 setConversationsWithMessages(prevConversations => {
                     return prevConversations.map(conversation => {
-                        if (conversation._id === newMessage.conversationId) {
+                        if (conversation._id === newMessage.conversation._id) {
                             return {
                                 ...conversation,
                                 lastMessageText: newMessage.message,
