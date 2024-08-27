@@ -96,7 +96,7 @@ const Message = ({ message, selectedLanguage }) => {
                 {translatedMessage && (
                     <div className="mt-2 ${translatedTextColor}">
                         <hr className="my-1"/>
-                        <p>Translation: {translatedMessage}</p>
+                        <p>{translatedMessage}</p>
                     </div>
                 )}
                 {/* Show an error message, if available */}

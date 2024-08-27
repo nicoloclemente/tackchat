@@ -5,6 +5,12 @@ import useGetConversationsWithMessages from "../../hooks/useGetConversationsWith
 const StartedConversations = ({ onConversationClick }) => {
     const { loading, conversationsWithMessages } = useGetConversationsWithMessages();
 
+    // Funzione per ordinare le conversazioni per data dell'ultimo messaggio
+    const sortedConversations = conversationsWithMessages.slice().sort((a, b) => {
+        // Confronta le date dell'ultimo messaggio
+        return new Date(b.lastMessageDate) - new Date(a.lastMessageDate);
+    });
+
     // Funzione per gestire il clic su una conversazione
     const handleConversationClick = (conversation) => {
         if (onConversationClick) {
@@ -14,14 +20,14 @@ const StartedConversations = ({ onConversationClick }) => {
 
     return (
         <div className="py-2 flex flex-col overflow-auto">
-            {conversationsWithMessages.map((conversation, idx) => (
+            {sortedConversations.map((conversation, idx) => (
                 <div
                     key={conversation._id}
                     onClick={() => handleConversationClick(conversation)}
                 >
                     <Conversation
                         conversation={conversation}
-                        lastIdx={idx === conversationsWithMessages.length - 1}
+                        lastIdx={idx === sortedConversations.length - 1}
                     />
                 </div>
             ))}
