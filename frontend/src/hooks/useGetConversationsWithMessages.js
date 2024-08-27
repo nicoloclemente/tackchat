@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import useGetConversations from "./useGetConversations";
 import toast from "react-hot-toast";
-import io from "socket.io-client";
-
-const SOCKET_URL = "https://tackchat.onrender.com"; // URL del server WebSocket
 
 const useGetConversationsWithMessages = () => {
     const { conversations, loading: conversationsLoading } = useGetConversations();
     const [conversationsWithMessages, setConversationsWithMessages] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [socket, setSocket] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchMessagesForConversations = async () => {
+            setLoading(true);
             const messagesByConversation = {};
 
             try {
@@ -52,34 +49,6 @@ const useGetConversationsWithMessages = () => {
             fetchMessagesForConversations();
         }
     }, [conversations, conversationsLoading]);
-
-    useEffect(() => {
-        const socketClient = io(SOCKET_URL);
-        setSocket(socketClient);
-
-        socketClient.on('messageUpdate', (updatedMessages) => {
-            // Logica per aggiornare le conversazioni con i nuovi messaggi
-            setConversationsWithMessages(prevConversations => {
-                const updatedConversations = prevConversations.map(conversation => {
-                    const newMessages = updatedMessages[conversation._id] || [];
-                    const lastMessage = newMessages[newMessages.length - 1];
-                    return {
-                        ...conversation,
-                        lastMessageText: lastMessage?.message || conversation.lastMessageText,
-                        lastMessageDate: lastMessage?.createdAt || conversation.lastMessageDate,
-                        lastMessageSender: lastMessage?.senderId || conversation.lastMessageSender,
-                    };
-                });
-
-                return updatedConversations;
-            });
-        });
-
-        return () => {
-            socketClient.off('messageUpdate');
-            socketClient.disconnect();
-        };
-    }, []);
 
     return { conversationsWithMessages, loading };
 };

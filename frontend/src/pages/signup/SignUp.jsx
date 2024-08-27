@@ -1,11 +1,12 @@
+// SignUp.jsx
 import GenderCheckbox from "./GenderCheckbox.jsx";
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import useSignup from "../../hooks/useSignup.js";
 import TypingEffect from "../../components/TypingEffect.jsx";
+import RegulationPopup from "./RegulationPopup.jsx"; // Importa il nuovo componente
 
 const SignUp = () => {
-
     const [inputs, setInputs] = useState({
         fullName: '',
         username: '',
@@ -14,6 +15,7 @@ const SignUp = () => {
         gender: '',
     });
 
+    const [isPopupOpen, setPopupOpen] = useState(false); // Gestisci lo stato del popup
     const { loading, signup } = useSignup();
 
     const handleCheckboxChange = (gender) => {
@@ -21,33 +23,32 @@ const SignUp = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevents page refresh
+        e.preventDefault();
         await signup(inputs);
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="mb-8">
-                <img src="/tackchat-logo.png" className="max-w-xs mx-auto"/>
+                <img src="/tackchat-logo.png" className="max-w-xs mx-auto" alt="TackChat Logo"/>
             </div>
             <div id="typing-wrapper" className="pb-3">
                 <span id="fixed-type">Chat with people in</span>
-                <TypingEffect/>
+                <TypingEffect />
                 <span id="cursor"></span>
             </div>
-            <div
-                className="flex flex-col items-center justify-center w-full max-w-md p-6 rounded-xl shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-100 bg-white">
+            <div className="flex flex-col items-center justify-center w-full max-w-md p-6 rounded-xl shadow-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-100 bg-white">
                 <form onSubmit={handleSubmit} className="w-full">
                     <div>
                         <label className="label p-2">
                             <span className="text-base label-text">Full Name</span>
                         </label>
-                        <input type="text" placeholder="Name Surname" className="w-full input input-bordered h-10"
-                               value={inputs.fullName}
-                               onChange={(e) => setInputs({
-                                   ...inputs,
-                                   fullName: e.target.value
-                               })} // aggiorna solo il fullName
+                        <input
+                            type="text"
+                            placeholder="Name Surname"
+                            className="w-full input input-bordered h-10"
+                            value={inputs.fullName}
+                            onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
                         />
                     </div>
 
@@ -55,9 +56,12 @@ const SignUp = () => {
                         <label className="label p-2">
                             <span className="text-base label-text">Username</span>
                         </label>
-                        <input type="text" placeholder="myusername" className="w-full input input-bordered h-10"
-                               value={inputs.username}
-                               onChange={(e) => setInputs({...inputs, username: e.target.value})}
+                        <input
+                            type="text"
+                            placeholder="myusername"
+                            className="w-full input input-bordered h-10"
+                            value={inputs.username}
+                            onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
                         />
                     </div>
 
@@ -65,9 +69,12 @@ const SignUp = () => {
                         <label className="label">
                             <span className="text-base label-text">Password</span>
                         </label>
-                        <input type="password" placeholder="Enter Password" className="w-full input input-bordered h-10"
-                               value={inputs.password}
-                               onChange={(e) => setInputs({...inputs, password: e.target.value})}
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            className="w-full input input-bordered h-10"
+                            value={inputs.password}
+                            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                         />
                     </div>
 
@@ -75,14 +82,26 @@ const SignUp = () => {
                         <label className="label">
                             <span className="text-base label-text">Confirm Password</span>
                         </label>
-                        <input type="password" placeholder="Confirm Password"
-                               className="w-full input input-bordered h-10"
-                               value={inputs.confirmPassword}
-                               onChange={(e) => setInputs({...inputs, confirmPassword: e.target.value})}
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            className="w-full input input-bordered h-10"
+                            value={inputs.confirmPassword}
+                            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
                         />
                     </div>
 
-                    <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender}/>
+                    <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
+
+                    <div className="my-2 text-xs text-center">
+                        By signing up for TackChat, you confirm that you accept our{' '}
+                        <span
+                            onClick={() => setPopupOpen(true)} // Apre il popup
+                            className="text-blue-500 cursor-pointer underline"
+                        >
+              terms and data processing policy.
+            </span>.
+                    </div>
 
                     <Link to={"/login"} className="text-sm hover:underline hover:text-orange-600 mt-2 inline-block">
                         Already have an account?
@@ -91,12 +110,16 @@ const SignUp = () => {
                     <div>
                         <button
                             className="btn btn-block btn-sm mt-2 border border-slate-700 hover:bg-blue-500 bg-orange-600 h-12 text-lg"
-                            disabled={loading}>
+                            disabled={loading}
+                        >
                             {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
                         </button>
                     </div>
                 </form>
             </div>
+
+            {/* Popup */}
+            <RegulationPopup isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
         </div>
     );
 };
