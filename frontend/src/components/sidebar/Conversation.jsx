@@ -30,7 +30,7 @@ console.log(conversation);
                             </p>
                         </div>
                         <span className="font-semibold text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
-                            {conversation.username}
+                            @{conversation.username}
                         </span>
                         <span className="font-normal text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
                             {conversation.lastMessageText ? conversation.lastMessageText : <span>&nbsp;</span>}

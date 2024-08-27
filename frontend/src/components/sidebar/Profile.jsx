@@ -26,7 +26,7 @@ const Profile = () => {
                     </div>
                     <div>
                         <p className="text-orange-600 text-xl">{authUser.fullName}</p>
-                        <p className="text-lg text-gray-500">{authUser.username}</p>
+                        <p className="text-lg text-gray-500">@{authUser.username}</p>
                         <p className="text-sm  font-thin text-gray-800">Member since: {memberSince}</p>
                     </div>
                 </div>
