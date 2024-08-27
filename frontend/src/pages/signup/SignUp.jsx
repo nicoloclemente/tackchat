@@ -99,7 +99,7 @@ const SignUp = () => {
                             onClick={() => setPopupOpen(true)} // Apre il popup
                             className="text-blue-500 cursor-pointer underline"
                         >
-              terms and data processing policy.
+              terms and data processing policy
             </span>.
                     </div>
 
