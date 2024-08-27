@@ -29,7 +29,7 @@ const SearchInput = () => {
                    value={search}
                    onChange={(e) => setSearch(e.target.value)}
             />
-            <button type="submit" className="btn btn-circle bg-orange-600 hover:bg-blue-500 text-white border-0">
+            <button type="submit" className="btn btn-circle bg-orange-600 hover:bg-blue-500 text-white border-0 hidden">
                 <CiSearch className="w-6 h-6 outline-none" />
             </button>
         </form>
