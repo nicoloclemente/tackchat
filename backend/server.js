@@ -8,10 +8,12 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import messageRoutes from './routes/message.routes.js';
 import userRoutes from './routes/user.routes.js';
+import profileRoutes from "./routes/profile.routes.js";
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import {app, server} from "./socket/socket.js";
 import * as path from "node:path";
+
 
 
 const PORT = process.env.PORT || 5001;
@@ -32,6 +34,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/profile", profileRoutes)
 
 // to serve static file
 // we go into dirname, that is the root, after we go into frontend

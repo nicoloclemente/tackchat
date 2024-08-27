@@ -32,7 +32,7 @@ const SignUp = () => {
             <div className="mb-8">
                 <img src="/tackchat-logo.png" className="max-w-xs mx-auto" alt="TackChat Logo"/>
             </div>
-            <div id="typing-wrapper" className="pb-3">
+            <div id="typing-wrapper" className="pb-3 md:block hidden">
                 <span id="fixed-type">Chat with people in</span>
                 <TypingEffect />
                 <span id="cursor"></span>

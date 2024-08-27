@@ -2,6 +2,7 @@ import React from 'react';
 import {useAuthContext} from "../../context/AuthContext.jsx";
 import useLogout from "../../hooks/useLogout.js";
 import {formatFullDate} from "../../utils/formatFullDate.js";
+import UpdateProfile from "./UpdateProfile.jsx";
 
 const Profile = () => {
 
@@ -19,7 +20,7 @@ const Profile = () => {
                     Logout
                 </button>
             </div>
-            <div className="flex items-center w-full h-full">
+            <div className="flex items-center w-full h-full flex-col py-4">
                 <div className="px-4 flex items-center gap-4">
                     <div className="w-24 rounded-full">
                         <img src={authUser.profilePic} alt="user avatar" />
@@ -30,6 +31,8 @@ const Profile = () => {
                         <p className="text-sm  font-thin text-gray-800">Member since: {memberSince}</p>
                     </div>
                 </div>
+                <h2 className="font-bold text-sm py-4">Update profile</h2>
+                <UpdateProfile/>
             </div>
         </div>
     );

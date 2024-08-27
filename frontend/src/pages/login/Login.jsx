@@ -20,7 +20,7 @@ const Login = () => {
             <div className="mb-8">
                 <img src="/tackchat-logo.png" alt="tackchat-logo" className="max-w-xs mx-auto"/>
             </div>
-            <div id="typing-wrapper" className="pb-3">
+            <div id="typing-wrapper" className="pb-3 md:block hidden">
                 <span id="fixed-type">Chat with people in</span>
                 <TypingEffect/>
                 <span id="cursor"></span>

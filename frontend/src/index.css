@@ -4,6 +4,15 @@
 
 body {
     background-image: url("../public/ascii-art.png");
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* background dietro al contenuto */
 }
 
 @keyframes gradient {

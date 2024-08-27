@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import useGetConversations from "./useGetConversations";
 import toast from "react-hot-toast";
-import { useSocketContext } from "../context/SocketContext.jsx";
 
 const useGetConversationsWithMessages = () => {
     const { conversations, loading: conversationsLoading } = useGetConversations();
     const [conversationsWithMessages, setConversationsWithMessages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { socket } = useSocketContext();
 
     useEffect(() => {
         const fetchMessagesForConversations = async () => {
@@ -51,30 +49,6 @@ const useGetConversationsWithMessages = () => {
             fetchMessagesForConversations();
         }
     }, [conversations, conversationsLoading]);
-
-    useEffect(() => {
-        if (socket) {
-            socket.on("newMessage", (newMessage) => {
-                setConversationsWithMessages(prevConversations => {
-                    return prevConversations.map(conversation => {
-                        if (conversation._id === newMessage.conversation._id) {
-                            return {
-                                ...conversation,
-                                lastMessageText: newMessage.message,
-                                lastMessageDate: newMessage.createdAt,
-                                lastMessageSender: newMessage.senderId,
-                            };
-                        }
-                        return conversation;
-                    });
-                });
-            });
-
-            return () => {
-                socket.off("newMessage");
-            };
-        }
-    }, [socket]);
 
     return { conversationsWithMessages, loading };
 };
