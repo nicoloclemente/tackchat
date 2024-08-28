@@ -10,6 +10,7 @@ const io = new Server(server, {
         // change the origin with http://localhost:3000 for local production
         origin: ["https://tackchat.it"],
         methods: ["GET", "POST"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     },
 });
 
