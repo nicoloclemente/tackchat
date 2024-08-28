@@ -27,7 +27,7 @@ const Message = ({ message, selectedLanguage }) => {
 
         try {
             // change the fetch with http://localhost:5001 for local production
-            const response = await fetch('https://tackchat.onrender.com/translate', {
+            const response = await fetch('https://tackchat.it/translate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
