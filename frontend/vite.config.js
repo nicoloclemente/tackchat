@@ -9,9 +9,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Tackchat',
-        short_name: 'Tackchat',
-        description: 'A chat application',
+        name: 'TackChat',
+        short_name: 'TackChat',
+        description: 'The Chat Social',
         start_url: '/',
         display: 'standalone',
         background_color: '#ffffff',
