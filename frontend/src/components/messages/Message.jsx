@@ -23,33 +23,39 @@ const Message = ({ message, selectedLanguage }) => {
     // Function to translate the message
     const handleTranslate = async () => {
         setLoading(true);
-        setError(null); // Clear any previous errors
+        setError(null);
 
         try {
-            // change the fetch with http://localhost:5001 for local production
-            const response = await fetch('https://tackchat.onrender.com/translate', {
+            // Determina l'URL del server in base all'ambiente
+            let serverUrl;
+            if (window.location.hostname === "tackchat.it") {
+                serverUrl = "https://tackchat.it";
+            } else if (window.location.hostname === "localhost") {
+                serverUrl = "http://localhost:5001";  // URL del server locale
+            } else {
+                serverUrl = "https://tackchat.onrender.com";
+            }
+
+            const response = await fetch(`${serverUrl}/translate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     text: message.message,
-                    targetLanguage: selectedLanguage // Use the selected language
+                    targetLanguage: selectedLanguage
                 })
             });
 
-            // Check the response status code
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error(`Errore HTTP ${response.status}: ${errorText}`);
                 throw new Error(`Errore HTTP ${response.status}: ${errorText}`);
             }
 
-            // Get the answer as text
             const text = await response.text();
             console.log('Risposta grezza dal server:', text);
 
-            // Try to convert to JSON
             try {
                 const data = JSON.parse(text);
                 console.log('Dati JSON:', data);

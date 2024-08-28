@@ -15,8 +15,17 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            // website url, change with http://localhost:5001 for local production
-            const socket = io("https://tackchat.onrender.com", {
+            // Determina l'URL del server in base all'ambiente
+            let serverUrl;
+            if (window.location.hostname === "tackchat.it") {
+                serverUrl = "https://tackchat.it";
+            } else if (window.location.hostname === "localhost") {
+                serverUrl = "http://localhost:5001";  // URL del server locale
+            } else {
+                serverUrl = "https://tackchat.onrender.com";
+            }
+
+            const socket = io(serverUrl, {
                 query: {
                     userId: authUser._id,
                 },
@@ -24,7 +33,6 @@ export const SocketContextProvider = ({ children }) => {
 
             setSocket(socket);
 
-            // socket.on() is used to listen on to the events. Can be used both on client and server side
             socket.on("getOnlineUsers", (users) => {
                 setOnlineUsers(users);
             });
