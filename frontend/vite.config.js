@@ -61,7 +61,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://tackchat.it', // for local production http://localhost:5001
+        target: 'http://localhost:5001',
         changeOrigin: true,
       },
     }
