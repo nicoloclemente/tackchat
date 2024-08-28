@@ -18,7 +18,19 @@ const Message = ({ message, selectedLanguage }) => {
     // Status for translated message
     const [translatedMessage, setTranslatedMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null); // Definizione di setError
+    const [error, setError] = useState(null);
+
+    // Function to determine the base URL
+    const getBaseUrl = () => {
+        const hostname = window.location.hostname;
+        if (hostname === 'tackchat.it') {
+            return 'https://tackchat.it';
+        } else if (hostname === 'tackchat.onrender.com') {
+            return 'https://tackchat.onrender.com';
+        } else {
+            return 'http://localhost:5001'; // URL for local development
+        }
+    };
 
     // Function to translate the message
     const handleTranslate = async () => {
@@ -26,15 +38,15 @@ const Message = ({ message, selectedLanguage }) => {
         setError(null); // Clear any previous errors
 
         try {
-            // change the fetch with http://localhost:5001 for local production
-            const response = await fetch('https://tackchat.it/translate', {
+            const baseUrl = getBaseUrl();
+            const response = await fetch(`${baseUrl}/translate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     text: message.message,
-                    targetLanguage: selectedLanguage // Use the selected language
+                    targetLanguage: selectedLanguage
                 })
             });
 
@@ -75,38 +87,34 @@ const Message = ({ message, selectedLanguage }) => {
         <div className={`chat ${chatClassName}`}>
             <div className={`${picShow} chat-image avatar`}>
                 <div className="w-10 rounded-full">
-                    <img alt="Tailwind CSS chat bubble component" src={profilePic} />
+                    <img alt="Profile" src={profilePic} />
                 </div>
             </div>
             <div
-                className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-7`}>
+                className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-lg`}>
                 {message.message}
-                {/* Translation button */}
                 <div className="flex gap-1 pt-1">
                     <button
                         onClick={handleTranslate}
                         className={`${translateButtonShow} text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3`}
                         disabled={loading}
                     >
-                        {loading ? "In progress..." : "t"}
+                        {loading ? "In progress..." : "Translate"}
                     </button>
                     <div className="chat-footer text-sm gap-1 text-right w-full text-gray-600 pl-3">{formattedTime}</div>
                 </div>
-                {/* Show translated message, if available */}
                 {translatedMessage && (
-                    <div className="mt-2 ${translatedTextColor}">
+                    <div className="mt-2 text-gray-700">
                         <hr className="my-1"/>
                         <p>{translatedMessage}</p>
                     </div>
                 )}
-                {/* Show an error message, if available */}
                 {error && (
-                    <div className="mt-2 text-red-500 bg-black rounded-lg">
+                    <div className="mt-2 text-red-500 bg-black rounded-lg p-2">
                         <p>Errore: {error}</p>
                     </div>
                 )}
             </div>
-
         </div>
     );
 };
