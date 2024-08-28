@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         // change the origin with http://localhost:3000 for local production
-        origin: ["https://tackchat.it"],
+        origin: ["https://tackchat.it", "https://tackchat.onrender.com"],
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type", "Authorization"],
     },
