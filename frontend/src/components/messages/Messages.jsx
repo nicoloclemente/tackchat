@@ -19,7 +19,7 @@ const Messages = ({ selectedLanguage }) => { // Accept the selectedLanguage prop
     }, [messages]);
 
     return (
-        <div className="px-4 py-2 flex-1 overflow-auto">
+        <div className="px-4 py-2 md:p pb-28 flex-1 overflow-auto">
             <div className="flex flex-col justify-between items-center py-4 gap-y-2">
                 <p className="font-normal text-black text-xl">{selectedConversation.fullName}</p>
                 <p className="font-normal text-sm text-gray-500">{selectedConversation.username}</p>

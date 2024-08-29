@@ -7,63 +7,59 @@ import UpdateProfile from "./UpdateProfile.jsx";
 const Profile = () => {
     const { authUser } = useAuthContext();
     const { loading, logout } = useLogout();
-    const [isEditOpen, setIsEditOpen] = useState(false);  // Stato per gestire la visibilità del popup
+    const [isEditOpen, setIsEditOpen] = useState(false);
 
     const memberSince = authUser ? formatFullDate(authUser.createdAt) : "N/A";
 
-    const openEditProfile = () => {
-        setIsEditOpen(true);
-    };
-
-    const closeEditProfile = () => {
-        setIsEditOpen(false);
-    };
+    const openEditProfile = () => setIsEditOpen(true);
+    const closeEditProfile = () => setIsEditOpen(false);
 
     return (
-        <div className="w-full">
-            <div className="flex items-center w-full h-full flex-col py-4">
-                <div className="px-4 flex items-center gap-4">
-                    <div className="w-24 h-24 rounded-full overflow-hidden">
+        <div className="w-full max-w-4xl mx-auto p-6">
+            <div className="flex flex-col items-center py-6">
+                <div className="flex items-center gap-6 mb-4">
+                    <div className="w-32 h-32 rounded-full overflow-hidden shadow-md">
                         <img
                             src={authUser.profilePic}
-                            alt="user avatar"
+                            alt="User avatar"
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div>
-                        <p className="text-orange-600 text-xl">{authUser.fullName}</p>
-                        <p className="text-lg text-gray-500">@{authUser.username}</p>
+                    <div className="text-center">
+                        <p className="text-2xl font-semibold text-gray-800">{authUser.fullName}</p>
+                        <p className="text-lg text-gray-600">@{authUser.username}</p>
                         <button
-                            className="rounded-lg px-6 py-1 bg-gray-200 mt-2"
-                            onClick={openEditProfile}  // Apre il popup
+                            className="mt-3 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                            onClick={openEditProfile}
                         >
-                            Edit profile
+                            Edit Profile
                         </button>
                     </div>
                 </div>
+                <p className="text-sm text-gray-600">Member since: {memberSince}</p>
             </div>
-            <p className="text-sm font-thin text-gray-800 text-center">Member since: {memberSince}</p>
 
             {isEditOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                        <h2 className="text-xl mb-7 text-center font-bold">Edit Profile</h2>
-                        <UpdateProfile closeEditProfile={closeEditProfile}/>
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                        <h2 className="text-2xl font-semibold mb-6 text-center">Edit Profile</h2>
+                        <UpdateProfile closeEditProfile={closeEditProfile} />
                         <button
-                            className="mt-4 text-orange-600 hover:underline"
-                            onClick={closeEditProfile}  // Chiude il popup
+                            className="mt-4 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition"
+                            onClick={closeEditProfile}
                         >
                             Close
                         </button>
                     </div>
                 </div>
             )}
-            <div className="flex justify-center border px-4 mt-20">
+
+            <div className="flex justify-center mt-8">
                 <button
-                    className="hover:bg-gray-400 text-red-500 p-2"
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
                     onClick={logout}
                 >
-                    Log out
+                    Log Out
                 </button>
             </div>
         </div>
