@@ -38,6 +38,9 @@ const useGetConversationsWithMessages = () => {
                     });
 
                 setConversationsWithMessages(enrichedConversations);
+
+                // Memorizza le conversazioni arricchite nel localStorage
+                localStorage.setItem('conversationsWithMessages', JSON.stringify(enrichedConversations));
             } catch (error) {
                 toast.error(error.message);
             } finally {
@@ -45,7 +48,12 @@ const useGetConversationsWithMessages = () => {
             }
         };
 
-        if (!conversationsLoading && conversations.length > 0) {
+        // Prova a caricare le conversazioni dal localStorage
+        const savedConversations = localStorage.getItem('conversationsWithMessages');
+        if (savedConversations) {
+            setConversationsWithMessages(JSON.parse(savedConversations));
+        } else if (!conversationsLoading && conversations.length > 0) {
+            // Se non ci sono conversazioni salvate, recuperale dal server
             fetchMessagesForConversations();
         }
     }, [conversations, conversationsLoading]);

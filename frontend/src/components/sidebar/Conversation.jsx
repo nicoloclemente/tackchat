@@ -7,7 +7,7 @@ const Conversation = ({ conversation }) => {
     const { onlineUsers } = useSocketContext();
     const isOnline = onlineUsers.includes(conversation._id);
     const isSelected = selectedConversation?._id === conversation._id;
-console.log(conversation);
+
     return (
         <div
             className={`flex gap-4 items-center hover:bg-gray-100 rounded cursor-pointer px-4 
