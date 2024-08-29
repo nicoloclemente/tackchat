@@ -29,7 +29,7 @@ const Profile = () => {
                         <p className="text-2xl font-semibold text-gray-800">{authUser.fullName}</p>
                         <p className="text-lg text-gray-600">@{authUser.username}</p>
                         <button
-                            className="mt-3 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+                            className="mt-3 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-600 transition"
                             onClick={openEditProfile}
                         >
                             Edit Profile

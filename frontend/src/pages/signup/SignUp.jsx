@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import useSignup from "../../hooks/useSignup.js";
 import TypingEffect from "../../components/TypingEffect.jsx";
-import RegulationPopup from "./RegulationPopup.jsx"; // Importa il nuovo componente
+import RegulationPopup from "./RegulationPopup.jsx"; // Import your RegulationPopup component
+import InstallPopup from "../../components/InstallPopup.jsx"; // Import the InstallPopup component
 
 const SignUp = () => {
     const [inputs, setInputs] = useState({
@@ -15,7 +16,7 @@ const SignUp = () => {
         gender: '',
     });
 
-    const [isPopupOpen, setPopupOpen] = useState(false); // Gestisci lo stato del popup
+    const [isPopupOpen, setPopupOpen] = useState(false); // Manage the state of the RegulationPopup
     const { loading, signup } = useSignup();
 
     const handleCheckboxChange = (gender) => {
@@ -28,7 +29,10 @@ const SignUp = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-screen relative">
+            {/* Install Popup Component */}
+            <InstallPopup />
+
             <div className="mb-8">
                 <img src="/tackchat-logo.png" className="max-w-xs mx-auto" alt="TackChat Logo"/>
             </div>
@@ -96,11 +100,11 @@ const SignUp = () => {
                     <div className="my-2 text-xs text-center">
                         By signing up for TackChat, you confirm that you accept our{' '}
                         <span
-                            onClick={() => setPopupOpen(true)} // Apre il popup
+                            onClick={() => setPopupOpen(true)} // Opens the RegulationPopup
                             className="text-blue-500 cursor-pointer underline"
                         >
-              terms and data processing policy
-            </span>.
+                            terms and data processing policy
+                        </span>.
                     </div>
 
                     <Link to={"/login"} className="text-sm hover:underline hover:text-orange-600 mt-2 inline-block">
@@ -118,7 +122,7 @@ const SignUp = () => {
                 </form>
             </div>
 
-            {/* Popup */}
+            {/* Regulation Popup */}
             <RegulationPopup isOpen={isPopupOpen} onClose={() => setPopupOpen(false)} />
         </div>
     );
