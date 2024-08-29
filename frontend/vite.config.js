@@ -38,7 +38,7 @@ export default defineConfig({
               cacheName: 'pages',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 24 * 60 * 60, // 24 ore
+                maxAgeSeconds: 24 * 60 * 60, // 24 hours
               },
             },
           },
@@ -49,7 +49,7 @@ export default defineConfig({
               cacheName: 'images',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 giorni
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
               },
             },
           },
