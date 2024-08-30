@@ -6,6 +6,8 @@ import { PiChatsTeardrop } from "react-icons/pi";
 import { PiUser } from "react-icons/pi";
 import { PiGlobeStand } from "react-icons/pi";
 import { PiDotsThree } from "react-icons/pi";
+import { PiShuffleSimpleFill } from "react-icons/pi";
+
 
 import { useAuthContext } from "../../context/AuthContext.jsx";
 import useLogout from "../../hooks/useLogout.js";
@@ -48,6 +50,7 @@ const Sidebar = ({ onConversationClick }) => {
                 </div>
             )}
 
+
             {(selected === 'Chats') && (
                 <div className="flex-1 overflow-y-auto">
                     <SearchInput/>
@@ -55,7 +58,6 @@ const Sidebar = ({ onConversationClick }) => {
                 </div>
             )}
 
-            {/* Profile view on mobile */}
             {selected === 'Profile' && (
                 <div className="flex-1 overflow-y-auto">
                     <Profile />
@@ -68,9 +70,11 @@ const Sidebar = ({ onConversationClick }) => {
                     className={`flex flex-col items-center ${selected === 'Tack' ? 'text-orange-600' : 'text-gray-600'}`}
                     onClick={() => handleSelect('Tack')}
                 >
-                    <PiGlobeStand />
+                    <PiGlobeStand/>
                     <span className="text-xs py-0.5">Tack</span>
                 </div>
+
+
                 <div
                     className={`flex flex-col items-center ${selected === 'Chats' ? 'text-orange-600' : 'text-gray-600'}`}
                     onClick={() => handleSelect('Chats')}
@@ -79,6 +83,7 @@ const Sidebar = ({ onConversationClick }) => {
                     <span className="text-xs py-0.5">Chats</span>
 
                 </div>
+
                 <div
                     className={`flex flex-col items-center ${selected === 'Profile' ? 'text-orange-600' : 'text-gray-600'}`}
                     onClick={() => handleSelect('Profile')}

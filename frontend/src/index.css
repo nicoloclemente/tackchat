@@ -126,11 +126,3 @@ html {
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
