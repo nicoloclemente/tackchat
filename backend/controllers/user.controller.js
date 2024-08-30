@@ -13,3 +13,20 @@ export const getUsersForSidebar = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+// Funzione per ottenere un utente per ID
+export const getUserById = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId).select('fullName'); // Seleziona solo il campo fullName
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.log('Error in getUserById: ', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
