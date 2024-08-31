@@ -15,6 +15,7 @@ import {formatFullDate} from "../../utils/formatFullDate.js";
 import StartedConversations from "./StartedConversations.jsx";
 import Profile from "./Profile.jsx";
 import ShareButton from "./ShareButton.jsx";
+import Globe from "./Globe.jsx";
 
 const Sidebar = ({ onConversationClick }) => {
     const { authUser } = useAuthContext();
@@ -38,15 +39,19 @@ const Sidebar = ({ onConversationClick }) => {
                 <div>
                     <button type="submit" className="mx-2 mt-2"><ShareButton /></button>
                 </div>
-                <h1 className=" py-2 font-bold text-4xl mb-">{selected}</h1>
+                <h1 className="py-2 font-bold text-4xl mb-">{selected}</h1>
             </div>
 
-
-            {/* Conversations button selected mobile */}
             {(selected === 'Tack') && (
                 <div className="flex-1 overflow-y-auto">
                     <SearchInput/>
                     <Conversations onConversationClick={onConversationClick}/>
+                </div>
+            )}
+
+            {(selected === 'Discover') && (
+                <div className="flex-1 overflow-y-auto w-screen fixed">
+                    <Globe />
                 </div>
             )}
 
@@ -72,6 +77,14 @@ const Sidebar = ({ onConversationClick }) => {
                 >
                     <PiGlobeStand/>
                     <span className="text-xs py-0.5">Tack</span>
+                </div>
+
+                <div
+                    className={`flex flex-col items-center ${selected === 'Discover' ? 'text-orange-600' : 'text-gray-600'}`}
+                    onClick={() => handleSelect('Discover')}
+                >
+                    <PiGlobeStand/>
+                    <span className="text-xs py-0.5">Discover</span>
                 </div>
 
 
