@@ -1,16 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import 'tailwindcss/tailwind.css'; // Assicurati di importare Tailwind CSS
+import 'tailwindcss/tailwind.css';
 
 const Globe = () => {
     const mountRef = useRef(null);
-    const [selectedCapital, setSelectedCapital] = useState(null); // Stato per la capitale selezionata
-    const [isPopupVisible, setIsPopupVisible] = useState(false); // Stato per la visibilità del popup
+    const [selectedCapital, setSelectedCapital] = useState(null);
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const [isAnimatingToCapital, setIsAnimatingToCapital] = useState(false);
 
-    // Definisci i limiti di zoom
-    const MIN_ZOOM = 10;  // Distanza minima dalla scena (ingrandimento massimo)
-    const MAX_ZOOM = 20; // Distanza massima dalla scena (ingrandimento minimo)
+    const MIN_ZOOM = 10;
+    const MAX_ZOOM = 20;
+
+    const capitals = [
+        { name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964 },
+        { name: 'Washington, D.C.', country: 'United States', lat: 38.8951, lon: -77.0369 },
+        { name: 'Beijing', country: 'China', lat: 39.9042, lon: 116.4074 },
+        { name: 'Moscow', country: 'Russia', lat: 55.7558, lon: 37.6173 },
+        { name: 'Tokyo', country: 'Japan', lat: 35.6895, lon: 139.6917 },
+        { name: 'London', country: 'United Kingdom', lat: 51.5074, lon: -0.1278 },
+        { name: 'Paris', country: 'France', lat: 48.8566, lon: 2.3522 },
+        { name: 'Berlin', country: 'Germany', lat: 52.52, lon: 13.405 },
+        { name: 'Canberra', country: 'Australia', lat: -35.2809, lon: 149.1300 },
+        { name: 'Brasília', country: 'Brazil', lat: -15.7801, lon: -47.9292 },
+    ];
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -58,6 +71,7 @@ const Globe = () => {
                 if (clickedObject.userData.capital) {
                     setSelectedCapital(clickedObject.userData.capital);
                     setIsPopupVisible(true);
+                    setIsAnimatingToCapital(true);  // Inizia l'animazione verso la capitale
                 }
             }
         };
@@ -78,7 +92,11 @@ const Globe = () => {
         const animate = () => {
             requestAnimationFrame(animate);
 
-            globeGroup.rotation.y += rotationSpeed;
+            if (!isAnimatingToCapital) {
+                globeGroup.rotation.y += rotationSpeed;
+            } else if (selectedCapital) {
+                animateToCapital(camera, controls, selectedCapital, () => setIsAnimatingToCapital(false));
+            }
 
             controls.update();
             renderer.render(scene, camera);
@@ -87,7 +105,6 @@ const Globe = () => {
         animate();
 
         return () => {
-            // Cleanup
             if (mountRef.current) {
                 if (renderer.domElement.parentElement) {
                     mountRef.current.removeChild(renderer.domElement);
@@ -103,7 +120,7 @@ const Globe = () => {
 
     const createGlobe = () => {
         const geometry = new THREE.SphereGeometry(5, 32, 32);
-        const texture = new THREE.TextureLoader().load('/2k_earth_daymap.jpg');
+        const texture = new THREE.TextureLoader().load('/8kearth.jpeg');
         const material = new THREE.MeshBasicMaterial({ map: texture });
         return new THREE.Mesh(geometry, material);
     };
@@ -120,15 +137,14 @@ const Globe = () => {
     const createLabel = (text, position, showFullName) => {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
-        context.font = 'Bold 24px Arial'; // Font size for calculating text size
+        context.font = 'Bold 24px Arial';
         const textWidth = context.measureText(text).width;
-        const textHeight = 24; // Assuming font size is 24px
+        const textHeight = 24;
 
-        // Update canvas size and font
         canvas.width = textWidth;
         canvas.height = textHeight;
 
-        context.font = 'Bold 24px Arial'; // Ensure the font is the same as the size for measuring
+        context.font = 'Bold 24px Arial';
         context.fillStyle = 'white';
         context.textAlign = 'center';
         context.fillText(showFullName ? text : text.charAt(0), textWidth / 2, textHeight - 4);
@@ -137,8 +153,7 @@ const Globe = () => {
         const material = new THREE.SpriteMaterial({ map: texture });
         const sprite = new THREE.Sprite(material);
 
-        // Scale the text to 1/6 of its original size
-        sprite.scale.set(textWidth / 120, textHeight / 120, 1); // Adjusted for new size
+        sprite.scale.set(textWidth / 120, textHeight / 120, 1);
 
         sprite.position.copy(position);
 
@@ -146,23 +161,9 @@ const Globe = () => {
     };
 
     const addCapitals = (scene, globeGroup) => {
-        const globeRadius = 5; // Raggio del globo
-        const additionalDistance = globeRadius / 12; // Un ottavo del raggio
-        const totalDistance = globeRadius + additionalDistance; // Distanza totale dal centro del globo
-
-        const capitals = [
-            { name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964 },
-            { name: 'Washington, D.C.', country: 'United States', lat: 38.8951, lon: -77.0369 },
-            { name: 'Beijing', country: 'China', lat: 39.9042, lon: 116.4074 },
-            { name: 'Moscow', country: 'Russia', lat: 55.7558, lon: 37.6173 },
-            { name: 'Tokyo', country: 'Japan', lat: 35.6895, lon: 139.6917 },
-            { name: 'London', country: 'United Kingdom', lat: 51.5074, lon: -0.1278 },
-            { name: 'Paris', country: 'France', lat: 48.8566, lon: 2.3522 },
-            { name: 'Berlin', country: 'Germany', lat: 52.52, lon: 13.405 },
-            { name: 'Canberra', country: 'Australia', lat: -35.2809, lon: 149.1300 },
-            { name: 'Brasília', country: 'Brazil', lat: -15.7801, lon: -47.9292 },
-            // Add remaining capitals here...
-        ];
+        const globeRadius = 5;
+        const additionalDistance = globeRadius / 12;
+        const totalDistance = globeRadius + additionalDistance;
 
         const pinMeshes = [];
 
@@ -183,8 +184,7 @@ const Globe = () => {
             pinMesh.position.copy(position.clone().add(new THREE.Vector3(0, 0.1, 0)));
             globeGroup.add(pinMesh);
 
-            // Calcola e applica l'offset per posizionare il label alla distanza desiderata
-            const normalizedPosition = position.clone().normalize(); // Normalizza la posizione
+            const normalizedPosition = position.clone().normalize();
             const labelPosition = normalizedPosition.multiplyScalar(totalDistance);
 
             const label = createLabel(capital.name, labelPosition, selectedCapital && selectedCapital.name === capital.name);
@@ -196,19 +196,41 @@ const Globe = () => {
         return pinMeshes;
     };
 
-    // Funzione per chiudere il popup
+    const animateToCapital = (camera, controls, capital, callback) => {
+        const globeRadius = 5;
+        const capitalPosition = latLonToVector3(capital.lat, capital.lon, globeRadius);
+
+        const step = 0.1; // Velocità di animazione
+
+        // Ruota la fotocamera verso la posizione della capitale
+        camera.position.lerp(capitalPosition.clone().setLength(globeRadius * 2), step);
+        camera.lookAt(capitalPosition);
+
+        controls.update();
+
+        if (camera.position.distanceTo(capitalPosition.clone().setLength(globeRadius * 2)) < 0.01) {
+            if (callback) callback();
+        }
+    };
+
     const closePopup = () => {
         setIsPopupVisible(false);
         setSelectedCapital(null);
     };
 
+    const handleCapitalClick = (capital) => {
+        setSelectedCapital(capital);
+        setIsPopupVisible(true);
+        setIsAnimatingToCapital(true);
+    };
+
     return (
-        <div className="relative w-full h-full">
-            <div ref={mountRef} className="w-full h-full" />
+        <div className="relative w-full h-full flex">
+            <div ref={mountRef} className="w-3/4 h-full" />
             {isPopupVisible && selectedCapital && (
                 <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-4 rounded shadow-lg z-10">
                     <p className="text-lg font-bold">{selectedCapital.name}</p>
-                    <p className="text-sm">{selectedCapital.country}</p> {/* Added country display */}
+                    <p className="text-sm">{selectedCapital.country}</p>
                     <button
                         onClick={closePopup}
                         className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -217,6 +239,23 @@ const Globe = () => {
                     </button>
                 </div>
             )}
+            {!selectedCapital && (
+                <div className="fixed w-2/3 md:w-fit h-1/3 overflow-y-auto bg-gray-200 p-4 left-4 top-4 rounded-md">
+                    <ul>
+                        {capitals.map((capital, index) => (
+                            <li key={index}>
+                                <button
+                                    onClick={() => handleCapitalClick(capital)}
+                                    className="block w-full text-left p-2 hover:bg-gray-300 rounded"
+                                >
+                                    {capital.name} ({capital.country})
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
         </div>
     );
 };

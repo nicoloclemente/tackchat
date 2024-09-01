@@ -15,11 +15,23 @@ const availableLanguages = [
     { code: 'zh-CN', name: 'Chinese' },
 ];
 
+const availableCountries = [
+    { code: 'us', name: 'United States' },
+    { code: 'it', name: 'Italy' },
+    { code: 'es', name: 'Spain' },
+    { code: 'fr', name: 'France' },
+    { code: 'jp', name: 'Japan' },
+    { code: 'kr', name: 'South Korea' },
+    { code: 'cn', name: 'China' },
+    // Add more countries as needed
+];
+
 const Profile = () => {
     const { authUser } = useAuthContext();
     const { loading, logout } = useLogout();
     const [isEditOpen, setIsEditOpen] = useState(false);
     const { selectedLanguage, setSelectedLanguage } = useLanguage(); // Use the context
+    const [selectedCountry, setSelectedCountry] = useState(authUser?.country || ''); // New state for country
 
     const memberSince = authUser ? formatFullDate(authUser.createdAt) : "N/A";
 
@@ -81,6 +93,23 @@ const Profile = () => {
                     ))}
                 </select>
             </div>
+
+            {/* Country Selector */}
+            <div className="mt-6 flex items-center justify-center space-x-4">
+                <span className="text-lg font-semibold text-gray-800">I am from:</span>
+                <select
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                    className="text-lg bg-white border border-gray-300 rounded-lg shadow-sm p-2 outline-none focus:ring-2 focus:ring-orange-500"
+                >
+                    {availableCountries.map((country) => (
+                        <option key={country.code} value={country.code}>
+                            {country.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
             <div className="flex justify-center mt-8">
                 <button
                     className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition"

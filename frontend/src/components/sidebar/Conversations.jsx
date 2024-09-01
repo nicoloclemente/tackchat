@@ -24,7 +24,7 @@ const Conversations = ({ onConversationClick }) => {
             ))}
             {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
             {!loading && (
-            <div className="text-xs pt-4 pb-28 flex items-center justify-center md:hidden">
+            <div className="text-xs py-4 flex items-center justify-center">
                 <p>You have reached the end of the page</p>
             </div>
                 )}

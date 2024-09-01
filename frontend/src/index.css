@@ -40,7 +40,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb{
-    background: darkslategray;
+    background: gray;
     border-radius: 7px;
 }
 
@@ -126,3 +126,6 @@ html {
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
+/** {*/
+/*   border: black 1px solid;*/
+/*}*/

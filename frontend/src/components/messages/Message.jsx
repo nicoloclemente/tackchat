@@ -10,7 +10,7 @@ const Message = ({ message, selectedLanguage }) => {
     const formattedTime = extractTime(message.createdAt);
     const chatClassName = fromMe ? 'chat-end' : 'chat-start';
     const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
-    const bubbleBgColor = fromMe ? 'bg-orange-600' : 'bg-gray-300';
+    const bubbleBgColor = fromMe ? 'bg-orange-600' : 'bg-white';
     const bubbleTextColor = fromMe ? 'text-white' : 'text-black';
     const picShow = fromMe ? "hidden" : "";
     const translateButtonShow = fromMe ? "hidden" : "";
@@ -26,7 +26,6 @@ const Message = ({ message, selectedLanguage }) => {
         setError(null);
 
         try {
-            // Determina l'URL del server in base all'ambiente
             let serverUrl;
             if (window.location.hostname === "tackchat.it") {
                 serverUrl = "https://www.tackchat.it";
@@ -78,41 +77,43 @@ const Message = ({ message, selectedLanguage }) => {
     };
 
     return (
-        <div className={`chat ${chatClassName}`}>
-            <div className={`${picShow} chat-image avatar`}>
-                <div className="w-10 rounded-full">
-                    <img alt="Tailwind CSS chat bubble component" src={profilePic} />
-                </div>
-            </div>
-            <div
-                className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-7`}>
-                {message.message}
-                {/* Translation button */}
-                <div className="flex gap-1 pt-1">
-                    <button
-                        onClick={handleTranslate}
-                        className={`${translateButtonShow} text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3`}
-                        disabled={loading}
-                    >
-                        {loading ? "In progress..." : "t"}
-                    </button>
-                    <div className="chat-footer text-sm gap-1 text-right w-full text-gray-600 pl-3">{formattedTime}</div>
-                </div>
-                {/* Show translated message, if available */}
-                {translatedMessage && (
-                    <div className="mt-2 ${translatedTextColor}">
-                        <hr className="my-1"/>
-                        <p>{translatedMessage}</p>
+        <div className={`chat ${chatClassName} relative`}>
+            <div className="flex flex-row">
+                <div className={`${picShow} chat-image avatar mr-2`}>
+                    <div className="w-10 h-10 rounded-full">
+                        <img alt="Tailwind CSS chat bubble component" src={profilePic}/>
                     </div>
-                )}
-                {/* Show an error message, if available */}
-                {error && (
-                    <div className="mt-2 text-red-500 bg-black rounded-lg">
-                        <p>Errore: {error}</p>
+                </div>
+                <div
+                    className={`chat-bubble ${bubbleTextColor} ${bubbleBgColor} pb-2 mb-1 break-words max-w-96 rounded-7 shadow-md`}>
+                    {message.message}
+                    <div className="chat-footer text-sm text-right w-full text-gray-600 mt-1">
+                        {formattedTime}
                     </div>
-                )}
+                    {/* Show translated message, if available */}
+                    {translatedMessage && (
+                        <div className="mt-2 ${translatedTextColor}">
+                            <hr className="my-1"/>
+                            <p>{translatedMessage}</p>
+                        </div>
+                    )}
+                    {/* Show an error message, if available */}
+                    {error && (
+                        <div className="mt-2 text-red-500 bg-black rounded-lg">
+                            <p>Errore: {error}</p>
+                        </div>
+                    )}
+                </div>
             </div>
 
+            {/* Translation button outside the bubble */}
+            <button
+                onClick={handleTranslate}
+                className={`${translateButtonShow} text-xs font-bold text-orange-50 hover:bg-blue-500 bg-black rounded-full px-3 py-2`}
+                disabled={loading}
+            >
+                {loading ? "In progress..." : "t"}
+            </button>
         </div>
     );
 };
