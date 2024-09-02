@@ -10,7 +10,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     z-index: -1; /* background dietro al contenuto */
 }
@@ -112,7 +112,7 @@ html {
         right: 0;
         bottom: 0;
         background-image: url("../public/ascii-art3.png");
-        background-size: cover;
+        background-size: contain;
         background-position: center;
         z-index: -1; /* background dietro al contenuto */
     }

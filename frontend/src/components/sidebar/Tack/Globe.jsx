@@ -1,29 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import 'tailwindcss/tailwind.css';
+import CountryPopup from './CountryPopup.jsx';
+import { availableCountries } from "../../../utils/countries.js";
+import CountrySelector from './CountrySelector.jsx';
 
 const Globe = () => {
     const mountRef = useRef(null);
-    const [selectedCapital, setSelectedCapital] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState(null);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [isAnimatingToCapital, setIsAnimatingToCapital] = useState(false);
+    const [isAnimatingToCountry, setIsAnimatingToCountry] = useState(false);
 
     const MIN_ZOOM = 10;
     const MAX_ZOOM = 20;
 
-    const capitals = [
-        { name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964 },
-        { name: 'Washington, D.C.', country: 'United States', lat: 38.8951, lon: -77.0369 },
-        { name: 'Beijing', country: 'China', lat: 39.9042, lon: 116.4074 },
-        { name: 'Moscow', country: 'Russia', lat: 55.7558, lon: 37.6173 },
-        { name: 'Tokyo', country: 'Japan', lat: 35.6895, lon: 139.6917 },
-        { name: 'London', country: 'United Kingdom', lat: 51.5074, lon: -0.1278 },
-        { name: 'Paris', country: 'France', lat: 48.8566, lon: 2.3522 },
-        { name: 'Berlin', country: 'Germany', lat: 52.52, lon: 13.405 },
-        { name: 'Canberra', country: 'Australia', lat: -35.2809, lon: 149.1300 },
-        { name: 'Brasília', country: 'Brazil', lat: -15.7801, lon: -47.9292 },
-    ];
+    const countries = availableCountries.map(entry => ({
+        capitalName: entry.capital,
+        countryName: entry.name,
+        latitude: entry.latitude,
+        longitude: entry.longitude,
+        code: entry.code,
+    }));
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -40,7 +37,7 @@ const Globe = () => {
 
         scene.add(globeGroup);
 
-        const pinMeshes = addCapitals(scene, globeGroup);
+        const pinMeshes = addCountryPins(scene, globeGroup);
 
         camera.position.z = (MIN_ZOOM + MAX_ZOOM) / 2;
 
@@ -63,15 +60,17 @@ const Globe = () => {
         };
 
         const onClick = () => {
+            if (isPopupVisible) return; // Non eseguire l'azione se il popup è visibile
+
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(pinMeshes);
 
             if (intersects.length > 0) {
                 const clickedObject = intersects[0].object;
-                if (clickedObject.userData.capital) {
-                    setSelectedCapital(clickedObject.userData.capital);
+                if (clickedObject.userData.country) {
+                    setSelectedCountry(clickedObject.userData.country);
                     setIsPopupVisible(true);
-                    setIsAnimatingToCapital(true);  // Inizia l'animazione verso la capitale
+                    setIsAnimatingToCountry(true);
                 }
             }
         };
@@ -92,10 +91,10 @@ const Globe = () => {
         const animate = () => {
             requestAnimationFrame(animate);
 
-            if (!isAnimatingToCapital) {
+            if (!isAnimatingToCountry) {
                 globeGroup.rotation.y += rotationSpeed;
-            } else if (selectedCapital) {
-                animateToCapital(camera, controls, selectedCapital, () => setIsAnimatingToCapital(false));
+            } else if (selectedCountry) {
+                animateToCountry(camera, controls, selectedCountry, () => setIsAnimatingToCountry(false));
             }
 
             controls.update();
@@ -116,7 +115,7 @@ const Globe = () => {
             scene.clear();
             renderer.dispose();
         };
-    }, [selectedCapital]);
+    }, [selectedCountry, isPopupVisible]); // Aggiunto isPopupVisible alle dipendenze
 
     const createGlobe = () => {
         const geometry = new THREE.SphereGeometry(5, 32, 32);
@@ -134,52 +133,52 @@ const Globe = () => {
         return new THREE.Vector3(x, y, z);
     };
 
-    const createLabel = (text, position, showFullName) => {
+    const createLabel = (text, position) => {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
-        context.font = 'Bold 24px Arial';
+        context.font = 'Normal 24px monospace';
         const textWidth = context.measureText(text).width;
         const textHeight = 24;
 
         canvas.width = textWidth;
         canvas.height = textHeight;
 
-        context.font = 'Bold 24px Arial';
+        context.font = 'Normal 24px monospace';
         context.fillStyle = 'white';
         context.textAlign = 'center';
-        context.fillText(showFullName ? text : text.charAt(0), textWidth / 2, textHeight - 4);
+        context.fillText(text, textWidth / 2, textHeight - 4);
 
         const texture = new THREE.CanvasTexture(canvas);
         const material = new THREE.SpriteMaterial({ map: texture });
         const sprite = new THREE.Sprite(material);
 
         sprite.scale.set(textWidth / 120, textHeight / 120, 1);
-
         sprite.position.copy(position);
 
         return sprite;
     };
 
-    const addCapitals = (scene, globeGroup) => {
+    const addCountryPins = (scene, globeGroup) => {
         const globeRadius = 5;
         const additionalDistance = globeRadius / 12;
         const totalDistance = globeRadius + additionalDistance;
 
         const pinMeshes = [];
+        const labelMeshes = new Map();
 
-        capitals.forEach(capital => {
-            const position = latLonToVector3(capital.lat, capital.lon, globeRadius);
+        countries.forEach(country => {
+            const position = latLonToVector3(country.latitude, country.longitude, globeRadius);
 
             const collisionRadius = 0.3;
             const collisionGeometry = new THREE.SphereGeometry(collisionRadius, 16, 16);
             const collisionMaterial = new THREE.MeshBasicMaterial({ visible: false });
             const collisionMesh = new THREE.Mesh(collisionGeometry, collisionMaterial);
             collisionMesh.position.copy(position.clone().add(new THREE.Vector3(0, 0.1, 0)));
-            collisionMesh.userData = { capital };
+            collisionMesh.userData = { country };
             globeGroup.add(collisionMesh);
 
             const pinGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-            const pinMaterial = new THREE.MeshBasicMaterial({ color: 'red' });
+            const pinMaterial = new THREE.MeshBasicMaterial({ color: '#e2601a' });
             const pinMesh = new THREE.Mesh(pinGeometry, pinMaterial);
             pinMesh.position.copy(position.clone().add(new THREE.Vector3(0, 0.1, 0)));
             globeGroup.add(pinMesh);
@@ -187,75 +186,60 @@ const Globe = () => {
             const normalizedPosition = position.clone().normalize();
             const labelPosition = normalizedPosition.multiplyScalar(totalDistance);
 
-            const label = createLabel(capital.name, labelPosition, selectedCapital && selectedCapital.name === capital.name);
+            const label = createLabel(country.countryName, labelPosition);
+            labelMeshes.set(country.countryName, label);
             globeGroup.add(label);
 
             pinMeshes.push(collisionMesh);
         });
 
+        labelMeshes.forEach((label, name) => {
+            label.visible = selectedCountry ? selectedCountry.countryName === name : false;
+        });
+
         return pinMeshes;
     };
 
-    const animateToCapital = (camera, controls, capital, callback) => {
+    const animateToCountry = (camera, controls, country, callback) => {
         const globeRadius = 5;
-        const capitalPosition = latLonToVector3(capital.lat, capital.lon, globeRadius);
+        const countryPosition = latLonToVector3(country.latitude, country.longitude, globeRadius);
 
-        const step = 0.1; // Velocità di animazione
+        const step = 0.1;
 
-        // Ruota la fotocamera verso la posizione della capitale
-        camera.position.lerp(capitalPosition.clone().setLength(globeRadius * 2), step);
-        camera.lookAt(capitalPosition);
+        camera.position.lerp(countryPosition.clone().setLength(globeRadius * 2), step);
+        camera.lookAt(countryPosition);
 
         controls.update();
 
-        if (camera.position.distanceTo(capitalPosition.clone().setLength(globeRadius * 2)) < 0.01) {
+        if (camera.position.distanceTo(countryPosition.clone().setLength(globeRadius * 2)) < 0.01) {
             if (callback) callback();
         }
     };
 
-    const closePopup = () => {
-        setIsPopupVisible(false);
-        setSelectedCapital(null);
-    };
-
-    const handleCapitalClick = (capital) => {
-        setSelectedCapital(capital);
+    const handleCountryClick = (country) => {
+        setSelectedCountry(country);
         setIsPopupVisible(true);
-        setIsAnimatingToCapital(true);
+        setIsAnimatingToCountry(true);
     };
 
     return (
         <div className="relative w-full h-full flex">
             <div ref={mountRef} className="w-3/4 h-full" />
-            {isPopupVisible && selectedCapital && (
-                <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-4 rounded shadow-lg z-10">
-                    <p className="text-lg font-bold">{selectedCapital.name}</p>
-                    <p className="text-sm">{selectedCapital.country}</p>
-                    <button
-                        onClick={closePopup}
-                        className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    >
-                        Close
-                    </button>
-                </div>
+            {isPopupVisible && (
+                <CountryPopup
+                    country={selectedCountry}
+                    onClose={() => {
+                        setIsPopupVisible(false);
+                        setSelectedCountry(null);
+                    }}
+                />
             )}
-            {!selectedCapital && (
-                <div className="fixed w-2/3 md:w-fit h-1/3 overflow-y-auto bg-gray-200 p-4 left-4 top-4 rounded-md">
-                    <ul>
-                        {capitals.map((capital, index) => (
-                            <li key={index}>
-                                <button
-                                    onClick={() => handleCapitalClick(capital)}
-                                    className="block w-full text-left p-2 hover:bg-gray-300 rounded"
-                                >
-                                    {capital.name} ({capital.country})
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+            {!selectedCountry && (
+                <CountrySelector
+                    countries={countries}
+                    onCountryClick={handleCountryClick}
+                />
             )}
-
         </div>
     );
 };

@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const signup = async (req, res) => {
     try {
-        const { fullName, username, password, confirmPassword, gender } = req.body;
+        const { fullName, username, password, confirmPassword, gender, country, language } = req.body;
 
         if (password !== confirmPassword) {
             return res.status(400).json({ error: 'Passwords do not match' });
@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Avatar placeholder
+        // Standard avatar placeholder
 
         const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
         const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
@@ -30,6 +30,8 @@ export const signup = async (req, res) => {
             username,
             password: hashedPassword,
             gender,
+            country,
+            language,
             profilePic: gender === 'male' ? boyProfilePic : girlProfilePic
         });
 
@@ -43,6 +45,8 @@ export const signup = async (req, res) => {
                 fullName: newUser.fullName,
                 username: newUser.username,
                 profilePic: newUser.profilePic,
+                country: newUser.country,
+                language: newUser.language,
                 createdAt: newUser.createdAt, // Include the createdAt field
             }); // sono i valori poi visualizzati nella console quando inserisco i dati nel form
         } else {
@@ -72,6 +76,8 @@ export const login = async (req, res) => {
             username: user.username,
             profilePic: user.profilePic,
             createdAt: user.createdAt,
+            country: user.country,
+            language: user.language,
         });
     } catch (error) {
         console.log('Error in login controller', error.message);

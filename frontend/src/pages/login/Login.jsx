@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useLogin from "../../hooks/useLogin.js";
-import TypingEffect from "../../components/TypingEffect.jsx";
-import InstallPopup from "../../components/InstallPopup.jsx";
+import TypingEffect from "../../utils/TypingEffect.jsx";
+import InstallPopup from "../../utils/InstallPopup.jsx";
 
 const Login = () => {
     const [username, setUsername] = useState("");

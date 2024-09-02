@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const updateProfile = async (req, res) => {
     try {
-        const { userId, fullName, username, profilePic, password } = req.body;
+        const { userId, fullName, username, profilePic, country, language, password } = req.body;
 
         const user = await User.findById(userId);
 
@@ -22,6 +22,8 @@ export const updateProfile = async (req, res) => {
         if (fullName) user.fullName = fullName;
         if (username) user.username = username;
         if (profilePic) user.profilePic = profilePic;
+        if (country) user.country = country;
+        if (language) user.language = language;
 
         await user.save();
 
@@ -33,6 +35,8 @@ export const updateProfile = async (req, res) => {
             fullName: user.fullName,
             username: user.username,
             profilePic: user.profilePic,
+            country: user.country,
+            language: user.language,
             createdAt: user.createdAt,
         });
     } catch (error) {

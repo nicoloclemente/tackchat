@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['male', 'female'],
     },
+    country: {
+        type: String,
+        default: '',
+    },
+    language: {
+        type: String,
+        default: 'en-US',
+    },
     profilePic: {
         type: String,
         default: "",
