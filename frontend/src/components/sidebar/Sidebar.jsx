@@ -26,7 +26,7 @@ const Sidebar = ({ onConversationClick }) => {
             <div className="border-b-0 px-4 flex items-center">
                 <div className="flex gap-4 items-center">
                     <button type="button">
-                        <ShareButton />
+                        <ShareButton/>
                     </button>
 
                     {selected === 'Chats' && (
@@ -34,11 +34,10 @@ const Sidebar = ({ onConversationClick }) => {
                             type="button"
                             onClick={() => setShowConversationsPopup(true)}
                         >
-                            <IoIosAdd className="text-3xl hover:bg-gray-400 p-1 text-white bg-orange-600 rounded-full" />
+                            <IoIosAdd className="text-3xl hover:bg-gray-400 p-1 text-white bg-orange-600 rounded-full"/>
                         </button>
                     )}
                 </div>
-
                 <h1 className="py-2 font-bold text-4xl ml-auto">{selected}</h1>
             </div>
 

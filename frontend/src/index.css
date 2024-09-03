@@ -126,6 +126,6 @@ html {
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-/** {*/
-/*   border: black 1px solid;*/
-/*}*/
+* {
+   border: black 1px solid;
+}
