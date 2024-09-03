@@ -5,7 +5,7 @@ import CountryPopup from './CountryPopup.jsx';
 import { availableCountries } from "../../../utils/countries.js";
 import CountrySelector from './CountrySelector.jsx';
 
-const Globe = () => {
+const Globe = ({ onConversationClick }) => {
     const mountRef = useRef(null);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -232,6 +232,7 @@ const Globe = () => {
                         setIsPopupVisible(false);
                         setSelectedCountry(null);
                     }}
+                    onConversationClick={onConversationClick}
                 />
             )}
             {!selectedCountry && (

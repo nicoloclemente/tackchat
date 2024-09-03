@@ -17,7 +17,7 @@ const Profile = () => {
     return (
         <div className="w-full max-w-4xl mx-auto p-2">
             <div className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 mb-6">
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-4 mb-4">
                     <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-200 shadow-lg items-center">
                         <img
                             src={authUser.profilePic}
@@ -25,11 +25,11 @@ const Profile = () => {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <div className="text-center">
+                    <div className="text-start">
                         <p className="text-3xl font-bold text-gray-800">{authUser.fullName}</p>
                         <p className="text-lg text-gray-600">@{authUser.username}</p>
                         <button
-                            className="mt-4 px-6 py-2 bg-orange-600 text-white rounded-full hover:bg-orange-600 transition"
+                            className="mt-4 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-600 transition"
                             onClick={openEditProfile}
                         >
                             Edit Profile
@@ -50,7 +50,7 @@ const Profile = () => {
 
             <div className="flex justify-center mt-8">
                 <button
-                    className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition"
+                    className="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-600 transition"
                     onClick={logout}
                 >
                     Log Out

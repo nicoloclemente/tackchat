@@ -23,7 +23,7 @@ const MessageInput = () => {
                     <input
                         type="text"
                         className="flex-grow mr-3 rounded-full block px-4 py-2 bg-white text-black caret-orange-600 outline-none shadow-sm"
-                        placeholder="Scrivi un messaggio..."
+                        placeholder="Write a message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
