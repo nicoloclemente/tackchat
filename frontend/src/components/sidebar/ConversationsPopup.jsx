@@ -19,7 +19,7 @@ const ConversationsPopup = ({ onClose, onConversationClick }) => {
                         className="text-gray-600 hover:text-gray-800"
                         onClick={onClose}
                     >
-                        <span className="text-xl">&times;</span> {/* X symbol */}
+                        <span className="text-xl">&times;</span>
                     </button>
                 </div>
 

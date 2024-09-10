@@ -49,22 +49,22 @@ app.post('/translate', async (req, res) => {
     const { text, targetLanguage } = req.body;
 
     try {
-        console.log(`Richiesta di traduzione ricevuta: testo="${text}", lingua di destinazione="${targetLanguage}"`);
+        console.log(`Translation request received: text="${text}", target language="${targetLanguage}"`);
 
         // Perform the translation
         const [translation] = await translate.translate(text, targetLanguage);
 
         if (!translation || translation.length === 0) {
-            console.log('La traduzione è vuota o non riuscita.');
-            res.status(500).json({ error: 'La traduzione non è riuscita o è vuota.' });
+            console.log('Translation is empty or failed.');
+            res.status(500).json({ error: 'Translation is empty or failed.' });
             return;
         }
 
-        console.log(`Traduzione effettuata: ${translation}`);
+        console.log(`Translation done: ${translation}`);
         res.json({ translatedText: translation });
     } catch (error) {
-        console.error('Errore durante la traduzione:', error.message);
-        res.status(500).json({ error: 'Errore durante la traduzione.', details: error.message });
+        console.error('Error while translating:', error.message);
+        res.status(500).json({ error: 'Error while translating.', details: error.message });
     }
 });
 

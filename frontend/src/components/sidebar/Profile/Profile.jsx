@@ -36,7 +36,7 @@ const Profile = () => {
                         </button>
                     </div>
                 </div>
-                <p className="text-sm text-gray-500">Member since: {memberSince}</p>
+                <p className="text-sm text-gray-500 text-center">Member since: {memberSince}</p>
             </div>
 
             {isEditOpen && (

@@ -60,7 +60,7 @@ const Globe = ({ onConversationClick }) => {
         };
 
         const onClick = () => {
-            if (isPopupVisible) return; // Non eseguire l'azione se il popup è visibile
+            if (isPopupVisible) return; // Don't perform the action if the popup is visible
 
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(pinMeshes);
@@ -115,7 +115,7 @@ const Globe = ({ onConversationClick }) => {
             scene.clear();
             renderer.dispose();
         };
-    }, [selectedCountry, isPopupVisible]); // Aggiunto isPopupVisible alle dipendenze
+    }, [selectedCountry, isPopupVisible]);
 
     const createGlobe = () => {
         const geometry = new THREE.SphereGeometry(5, 32, 32);

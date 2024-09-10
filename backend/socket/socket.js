@@ -4,7 +4,7 @@ import express from 'express';
 
 const app = express();
 
-// Middleware per gestire le intestazioni CORS per tutte le richieste HTTP
+// Middleware to handle CORS headers for all HTTP requests
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "https://tackchat.it");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -12,10 +12,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Creazione del server HTTP
+// Creating HTTP Server
 const server = http.createServer(app);
 
-// Configurazione di Socket.IO con CORS
+// Configuring Socket.IO with CORS
 const io = new Server(server, {
     cors: {
         origin: ["https://tackchat.onrender.com", "https://www.tackchat.it", "http://localhost:3000"],

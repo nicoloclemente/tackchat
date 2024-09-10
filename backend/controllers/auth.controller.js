@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Standard avatar placeholder
+        // Default avatar placeholder
 
         const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
         const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
@@ -48,7 +48,7 @@ export const signup = async (req, res) => {
                 country: newUser.country,
                 language: newUser.language,
                 createdAt: newUser.createdAt, // Include the createdAt field
-            }); // sono i valori poi visualizzati nella console quando inserisco i dati nel form
+            }); // These are the values that are displayed in the console when I enter data into the form
         } else {
             res.status(400).json({ error: 'Invalid user data' });
         }

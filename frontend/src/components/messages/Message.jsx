@@ -18,7 +18,7 @@ const Message = ({ message, selectedLanguage }) => {
     // Status for translated message
     const [translatedMessage, setTranslatedMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null); // Definizione di setError
+    const [error, setError] = useState(null); // setError definition
 
     // Function to translate the message
     const handleTranslate = async () => {
@@ -30,7 +30,7 @@ const Message = ({ message, selectedLanguage }) => {
             if (window.location.hostname === "tackchat.it") {
                 serverUrl = "https://www.tackchat.it";
             } else if (window.location.hostname === "localhost") {
-                serverUrl = "http://localhost:5001";  // URL del server locale for production
+                serverUrl = "http://localhost:5001";  // URL local server for production
             } else {
                 serverUrl = "https://tackchat.onrender.com";
             }
@@ -48,29 +48,29 @@ const Message = ({ message, selectedLanguage }) => {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error(`Errore HTTP ${response.status}: ${errorText}`);
-                throw new Error(`Errore HTTP ${response.status}: ${errorText}`);
+                console.error(`HTTP Error ${response.status}: ${errorText}`);
+                throw new Error(`HTTP Error ${response.status}: ${errorText}`);
             }
 
             const text = await response.text();
-            console.log('Risposta grezza dal server:', text);
+            console.log('Raw response from server:', text);
 
             try {
                 const data = JSON.parse(text);
-                console.log('Dati JSON:', data);
+                console.log('JSON data:', data);
                 if (data && data.translatedText) {
                     setTranslatedMessage(data.translatedText);
                 } else {
-                    throw new Error('Formato di risposta non valido');
+                    throw new Error('Invalid response format');
                 }
             } catch (jsonError) {
-                console.error('Errore di parsing JSON:', jsonError.message);
-                setError('Errore di parsing JSON: ' + jsonError.message);
+                console.error('JSON parsing error:', jsonError.message);
+                setError('JSON parsing error: ' + jsonError.message);
             }
 
         } catch (error) {
-            console.error('Errore durante la traduzione:', error.message);
-            setError(`Errore: ${error.message}`);
+            console.error('Error while translating:', error.message);
+            setError(`Error: ${error.message}`);
         } finally {
             setLoading(false);
         }

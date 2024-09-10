@@ -1,11 +1,10 @@
-// SignUp.jsx
 import GenderCheckbox from "./GenderCheckbox.jsx";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useSignup from "../../hooks/useSignup.js";
 import TypingEffect from "../../utils/TypingEffect.jsx";
-import RegulationPopup from "./RegulationPopup.jsx"; // Import your RegulationPopup component
-import InstallPopup from "../../utils/InstallPopup.jsx"; // Import the InstallPopup component
+import RegulationPopup from "./RegulationPopup.jsx";
+import InstallPopup from "../../utils/InstallPopup.jsx";
 
 const SignUp = () => {
     const [inputs, setInputs] = useState({

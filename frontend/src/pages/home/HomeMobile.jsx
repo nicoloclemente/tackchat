@@ -15,7 +15,7 @@ const HomeMobile = () => {
 
     return (
         <div className='flex w-full h-full rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-            {/* Condizione per mostrare Sidebar o MessageContainer */}
+            {/* Condition to show Sidebar or MessageContainer */}
             <div className={`w-full h-full ${showMessageContainer ? 'hidden' : 'block'}`}>
                 <Sidebar onConversationClick={handleConversationClick} />
             </div>

@@ -1,8 +1,7 @@
-// utils/extractTime.js
 export function extractTime(dateString) {
     const date = new Date(dateString);
 
-    // Controlla se la data è valida
+    // Check if the date is valid
     if (isNaN(date.getTime())) {
         return '';
     }
@@ -12,7 +11,7 @@ export function extractTime(dateString) {
     return `${hours}:${minutes}`;
 }
 
-// Aggiungere uno zero iniziale ai numeri a una cifra
+// Add a leading zero to single-digit numbers
 function padZero(number) {
     return number.toString().padStart(2, "0");
 }

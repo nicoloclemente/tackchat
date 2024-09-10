@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// Array con tutte le lingue di Google Translate
+// Languages Array
 const languages = [
     "Afrikaans", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Basque", "Belarusian", "Bengali",
     "Bosnian", "Bulgarian", "Catalan", "Cebuano", "Chichewa", "Chinese",

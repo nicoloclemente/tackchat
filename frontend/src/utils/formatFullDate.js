@@ -1,5 +1,3 @@
-// utils/formatDate.js
-
 /**
  * Formatta una data in formato esteso.
  * @param {string | Date} dateString - La stringa della data o l'oggetto Date da formattare.
@@ -8,7 +6,7 @@
 export const formatFullDate = (dateString) => {
     const date = new Date(dateString);
 
-    // Verifica se la data è valida
+    // Check if the date is valid
     if (isNaN(date.getTime())) {
         return "Invalid date";
     }

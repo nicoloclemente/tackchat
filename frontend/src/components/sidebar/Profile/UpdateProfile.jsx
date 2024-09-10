@@ -61,13 +61,13 @@ const UpdateProfile = ({ closeEditProfile }) => {
                 setAuthUser(updatedUser);
                 localStorage.setItem("chat-user", JSON.stringify(updatedUser));
                 closeEditProfile();
-                alert('Profilo aggiornato con successo');
+                alert('Profile updated successfully');
             } else {
-                alert(data.error || 'Errore durante l\'aggiornamento del profilo');
+                alert(data.error || 'Error updating profile');
             }
         } catch (error) {
-            console.error('Errore durante l\'aggiornamento del profilo', error);
-            alert('Errore durante l\'aggiornamento del profilo');
+            console.error('Error updating profile', error);
+            alert('Error updating profile');
         } finally {
             setIsSubmitting(false);
         }

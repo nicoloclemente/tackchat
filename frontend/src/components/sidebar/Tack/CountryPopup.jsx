@@ -22,7 +22,7 @@ const CountryPopup = ({ country, onClose, onConversationClick }) => {
 
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center z-30 bg-gray-800 bg-opacity-50 transition-opacity duration-300 ease-in-out">
+            className="fixed inset-0 flex items-center justify-center z-30 bg-gray-800 bg-opacity-50 transition-opacity duration-300 ease-in-out opacity-90">
             <div
                 className="bg-gray-800 rounded-lg text-white h-2/3 w-11/12 max-w-lg p-4 shadow-lg z-10 overflow-y-auto">
                 <button

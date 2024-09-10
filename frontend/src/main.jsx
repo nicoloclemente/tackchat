@@ -5,7 +5,7 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext.jsx';
 import { SocketContextProvider } from './context/SocketContext.jsx';
-import { LanguageProvider } from './context/LanguageContext'; // Import the LanguageProvider
+import { LanguageProvider } from './context/LanguageContext';
 import { registerSW } from 'virtual:pwa-register';
 
 // Register Service Worker

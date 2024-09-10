@@ -9,10 +9,10 @@ const ShareButton = () => {
                 text: 'Tackchat: Chat In Every Language',
                 url: 'https://www.tackchat.com',
             })
-                .then(() => console.log('Condiviso con successo'))
-                .catch((error) => console.log('Errore nella condivisione:', error));
+                .then(() => console.log('Shared successfully'))
+                .catch((error) => console.log('Sharing error:', error));
         } else {
-            alert('La tua piattaforma non supporta la condivisione web.');
+            alert('Your platform does not support web sharing.');
         }
     };
 

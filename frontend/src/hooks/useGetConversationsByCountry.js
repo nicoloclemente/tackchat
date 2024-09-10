@@ -18,7 +18,7 @@ const useGetConversationsByCountry = (countryCode) => {
                 if (data.error) {
                     throw new Error(data.error);
                 }
-                // Filtrare gli utenti basati sul countryCode
+                // Filter users based on countryCode
                 const filteredConversations = data.filter(user => user.country === countryCode);
                 setConversations(filteredConversations);
             } catch (error) {

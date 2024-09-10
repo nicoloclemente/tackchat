@@ -12,7 +12,7 @@ body {
     bottom: 0;
     background-size: contain;
     background-position: center;
-    z-index: -1; /* background dietro al contenuto */
+    z-index: -1; /* background behind the content */
 }
 
 @keyframes gradient {
@@ -91,9 +91,9 @@ html {
 #cursor {
     font-size: 2em;
     font-family: 'Courier New', Courier, monospace;
-    border-right: 0.1em solid #e2601a; /* Colore Cursore */
+    border-right: 0.1em solid #e2601a; /* Cursor Color */
     animation: blink-caret 0.75s step-end infinite;
-    height: 1em; /* Assicurarsi che il cursore sia alto quanto il testo */
+    height: 1em; /* Make sure the cursor is as tall as the text */
     vertical-align: middle;
 }
 
@@ -114,11 +114,11 @@ html {
         background-image: url("../public/ascii-art3.png");
         background-size: contain;
         background-position: center;
-        z-index: -1; /* background dietro al contenuto */
+        z-index: -1; /* background behind the content */
     }
 
 
-/* Disabilita la selezione del testo su tutti gli elementi */
+/* Disable text selection on all elements */
 * {
     user-select: none;
     -webkit-user-select: none; /* Safari e Chrome */

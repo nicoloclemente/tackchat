@@ -5,7 +5,7 @@ import useGetConversations from "../../hooks/useGetConversations.js";
 const Conversations = ({ onConversationClick }) => {
     const { loading, conversations } = useGetConversations();
 
-    // Funzione per gestire il clic su una conversazione
+    // Function to manage click on a conversation
     const handleConversationClick = (conversation) => {
         if (onConversationClick) {
             onConversationClick(conversation);

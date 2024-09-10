@@ -6,15 +6,15 @@ import notificationSound from "../assets/sounds/notification.mp3";
 const useListenMessages = () => {
     const { socket } = useSocketContext();
     const { messages, setMessages } = useConversation();
-    const [userNames, setUserNames] = useState({}); // Cache per i nomi utenti
+    const [userNames, setUserNames] = useState({}); // Cache for usernames
 
-    // Funzione per ottenere il nome dell'utente
+    // Function to get the username
     const fetchUserName = async (senderId) => {
         try {
-            const token = localStorage.getItem('token'); // token memorizzato
+            const token = localStorage.getItem('token'); // stored token
             const response = await fetch(`/api/users/${senderId}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}` // token JWT nell'intestazione
+                    'Authorization': `Bearer ${token}` // JWT token in header
                 }
             });
 
@@ -31,31 +31,31 @@ const useListenMessages = () => {
         }
     };
 
-    // Funzione per inviare la notifica
+    // Function to send notification
     const sendNotification = async (newMessage) => {
         if (Notification.permission === "granted") {
-            // Recupera o usa il nome utente dalla cache
+            // Retrieve or use the username from the cache
             let userName = userNames[newMessage.senderId];
             if (!userName) {
                 userName = await fetchUserName(newMessage.senderId);
                 setUserNames(prev => ({ ...prev, [newMessage.senderId]: userName }));
             }
 
-            const title = `Nuovo Messaggio da ${userName}`;
+            const title = `New Message from ${userName}`;
             const options = {
                 body: newMessage.message,
-                icon: "/icons/icon-192x192.png", // icona personalizzata
+                icon: "/icons/icon-192x192.png", // custom icon
             };
             new Notification(title, options);
         }
     };
 
     useEffect(() => {
-        // Chiedi permesso per le notifiche
+        // Ask permission for notifications
         if (Notification.permission !== "granted") {
             Notification.requestPermission().then(permission => {
                 if (permission === "granted") {
-                    console.log("Permesso per le notifiche concesso.");
+                    console.log("Permission for notifications granted.");
                 }
             });
         }
@@ -65,7 +65,7 @@ const useListenMessages = () => {
             sound.play();
             setMessages([...messages, newMessage]);
 
-            // Invia la notifica
+            // Send notification
             sendNotification(newMessage);
         });
 

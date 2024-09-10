@@ -5,13 +5,13 @@ import useGetConversationsWithMessages from "../../hooks/useGetConversationsWith
 const StartedConversations = ({ onConversationClick }) => {
     const { loading, conversationsWithMessages } = useGetConversationsWithMessages();
 
-    // Funzione per ordinare le conversazioni per data dell'ultimo messaggio
+    // Function to sort conversations by last message date
     const sortedConversations = conversationsWithMessages.slice().sort((a, b) => {
         // Confronta le date dell'ultimo messaggio
         return new Date(b.lastMessageDate) - new Date(a.lastMessageDate);
     });
 
-    // Funzione per gestire il clic su una conversazione
+    // Function to manage click on a conversation
     const handleConversationClick = (conversation) => {
         if (onConversationClick) {
             onConversationClick(conversation);

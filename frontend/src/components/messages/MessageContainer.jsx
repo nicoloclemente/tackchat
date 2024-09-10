@@ -50,7 +50,7 @@ const MessageContainer = ({ onBackClick }) => {
                             </div>
                         </div>
                     </div>
-                    <Messages selectedLanguage={selectedLanguage}/> {/* Passa la lingua selezionata in profile */}
+                    <Messages selectedLanguage={selectedLanguage}/> {/* Pass the language, which has been selected in profile */}
                     <MessageInput/>
                 </>
             )}

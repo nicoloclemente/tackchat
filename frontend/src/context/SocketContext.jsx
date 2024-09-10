@@ -15,12 +15,12 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            // Determina l'URL del server in base all'ambiente
+            // Determine the server URL based on your environment
             let serverUrl;
             if (window.location.hostname === "tackchat.it") {
                 serverUrl = "https://www.tackchat.it";
             } else if (window.location.hostname === "localhost") {
-                serverUrl = "http://localhost:5001";  // URL del server locale for production
+                serverUrl = "http://localhost:5001";  // local server URL for production
             } else {
                 serverUrl = "https://tackchat.onrender.com";
             }
