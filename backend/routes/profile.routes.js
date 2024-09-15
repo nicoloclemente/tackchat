@@ -3,8 +3,7 @@ import { updateProfile } from '../controllers/profile.controller.js';
 
 const router = express.Router();
 
-
-// Profilo
+// Profile
 router.put('/updateProfile', updateProfile);
 
 export default router;
