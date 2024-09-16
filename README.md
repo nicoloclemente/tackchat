@@ -2,7 +2,7 @@
 
 ## Descrizione dello Scenario Applicativo
 
-TackChat è un'applicazione di messaggistica in tempo reale che consente agli utenti di comunicare tra loro attraverso messaggi. Utilizza WebSocket per la comunicazione in tempo reale e MongoDB per la gestione dei dati. L'integrazione con Google Cloud Translate permette la traduzione dei messaggi per facilitare la comunicazione tra utenti di lingue diverse.
+TackChat è un'applicazione di messaggistica in tempo reale che consente agli utenti di comunicare tra loro senza barriere linguistiche. Utilizza WebSocket per la comunicazione in tempo reale e MongoDB per la gestione dei dati. L'integrazione con Google Cloud Translate permette la traduzione dei messaggi.
 
 - **Obiettivo**: Facilitare la comunicazione in tempo reale tra utenti, con supporto per la traduzione.
 - **Pubblico target**: Utenti che desiderano mettersi in contatto con altri utenti che parlano in un'altra lingua.
