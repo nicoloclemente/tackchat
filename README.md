@@ -258,3 +258,42 @@ L'applicazione utilizza lo stack MERN (MongoDB, Express, React, Node.js). Ecco u
 
   - **useConversation (`zustand/useConversation.js`)**
     - Hook per gestire lo stato delle conversazioni utilizzando Zustand.
+
+## Diagramma UML dei Casi d'Uso
+
+```
+                 +---------------------+
+                 |    Utente Non       |
+                 |    Registrato       |
+                 +---------------------+
+                            |
+                            | [Registrazione]
+                            | [Login]
+                            |
+                            V
+                 +---------------------+
+                 |  Utente Registrato  |
+                 +---------------------+
+                            |
+          +-----------------+----------------+--------------------------+--------------------+-------------+
+          |                 A                |                          |                    |             |
+ [Invia Messaggio]   [Ricevi Messaggio]   [Visualizza Conversazioni]  [Aggiorna Profilo]  [Logout]  [Traduci Messaggio]
+          |                 |                                                                 
+          |                 |                                                                 
+          V                 |                                                                 
+        +----------------------+
+        |  Utente Registrato 2 |
+        +----------------------+
+```
+## Diagramma UML delle Sequenze
+
+```
+Utente               Interfaccia Utente                Server                      Database
+  |                            |                         |                            |
+  |--- Inserisce Messaggio --->|                         |                            |
+  |                            |---> Invia Messaggio --->|                            |
+  |                            |                         |-----> Salva Messaggio ---->|
+  |                            |                         |<--- Conferma Salvataggio---|
+  |<--- Conferma Inviato ------|                         |                            |
+  |                            |                         |                            |
+```
