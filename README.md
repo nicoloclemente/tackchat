@@ -160,7 +160,7 @@ L'applicazione utilizza lo stack MERN (MongoDB, Express, React, Node.js). Ecco u
       - Permette la selezione di un paese dall'elenco.
 
     - **Globe (`components/sidebar/Tack/Globe.jsx`)**
-      - Mostra un globo per la selezione del paese e alcune animazioni.
+      - Mostra un globo per la selezione del paese.
 
 4. **Skeletons**
 
@@ -275,25 +275,36 @@ L'applicazione utilizza lo stack MERN (MongoDB, Express, React, Node.js). Ecco u
                  |  Utente Registrato  |
                  +---------------------+
                             |
-          +-----------------+----------------+--------------------------+--------------------+-------------+
-          |                 A                |                          |                    |             |
- [Invia Messaggio]   [Ricevi Messaggio]   [Visualizza Conversazioni]  [Aggiorna Profilo]  [Logout]  [Traduci Messaggio]
-          |                 |                                                                 
-          |                 |                                                                 
-          V                 |                                                                 
-        +----------------------+
-        |  Utente Registrato 2 |
-        +----------------------+
+          +-----------------+----------------+--------------------------+--------------------+
+          |                 |                |                          |                    |           
+ [Invia Messaggio]   [Ricevi Messaggio]   [Visualizza Conversazioni]  [Aggiorna Profilo]  [Logout]
+                            A
+                            |
+                            |
+                          extend
+                            |
+                            |
+                     [Traduci Messaggio]
 ```
 ## Diagramma UML delle Sequenze
 
 ```
-Utente               Interfaccia Utente                Server                      Database
-  |                            |                         |                            |
-  |--- Inserisce Messaggio --->|                         |                            |
-  |                            |---> Invia Messaggio --->|                            |
-  |                            |                         |-----> Salva Messaggio ---->|
-  |                            |                         |<--- Conferma Salvataggio---|
-  |<--- Conferma Inviato ------|                         |                            |
-  |                            |                         |                            |
+Utente Registrato          Frontend                 Backend                 Database               Destinatario        Servizio Traduzione
+      |                        |                       |                        |                       |                        |
+      | Scrive messaggio       |                       |                        |                       |                        |
+      |----------------------->|                       |                        |                       |                        |
+      |                        | Invio messaggio       |                        |                       |                        |
+      |                        |---------------------->| Salva Messaggio        |                       |                        |
+      |                        |                       |----------------------->|                       |                        |
+      |                        |                       | Salvataggio riuscito   |                       |                        |
+      |                        |                       |<-----------------------|                       |                        |
+      |                        |                       | Invio messaggio        |                       |                        |
+      |                        |                       |----------------------->|                       |                        |
+      |                        |                       |                        | Invio messaggio       |                        |
+      |                        |                       | Messaggio inviato      |---------------------->| Richiesta traduzione   |
+      |                        | Messaggio inviato     |<-----------------------|                       |----------------------->|
+      |                        |<----------------------|                        |                       | Messaggio Tradotto     |
+      |                        |                       |                        |                       |<-----------------------|
+      |                        |                       |                        |                       |                        |
+      |                        |                       |                        |                       |                        |
 ```
